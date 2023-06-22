@@ -1,0 +1,27 @@
+app-form-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+
+	small {
+		margin-top: -0.25rem;
+	}
+	
+	ul.errors {
+		display: flex;
+		flex-direction: column;
+		margin: 3px 0 0;
+		padding: 0;
+		list-style: none;
+	
+		li {
+			color: var(--bs-danger);
+			font-size: 12px;
+		}
+	}
+
+	label small {
+		font-weight: 400;
+		opacity: 0.5;
+	}
+}

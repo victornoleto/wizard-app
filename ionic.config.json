@@ -1,0 +1,7 @@
+{
+  "name": "wizard-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

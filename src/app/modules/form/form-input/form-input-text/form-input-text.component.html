@@ -1,0 +1,23 @@
+<app-form-group
+	[label]="label"
+	[description]="description"
+	[name]="name"
+>
+
+	<input #input
+		[(ngModel)]="value"
+		[type]="type"
+		class="form-control"
+		(keyup)="onChange(input.value)"
+
+		[disabled]="disabled"
+		[attr.placeholder]="placeholder ? placeholder : null"
+		
+		[attr.minlength]="minlength ? minlength : null"
+		[attr.maxlength]="maxlength ? maxlength : null"
+		[autocapitalize]="autocapitalize"
+	>
+
+	<ng-content></ng-content>
+
+</app-form-group>

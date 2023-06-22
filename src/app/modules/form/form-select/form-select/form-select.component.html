@@ -1,0 +1,27 @@
+<app-form-group
+	[label]="label"
+	[description]="description"
+	[name]="name"
+	[required]="required"
+>
+
+	<select #input
+		[(ngModel)]="value"
+		class="form-select"
+		(change)="onChange(input.value)"
+
+		[attr.disabled]="disabled ? true : null"
+	>
+		<option value="" [attr.selected]="value === ''">{{ placeholder }}</option>
+
+		<option
+			*ngFor="let item of list"
+			[value]="item[valueAttr]"
+			[selected]="item[valueAttr] === value"
+		>
+			{{ item[nameAttr] }}
+		</option>
+
+	</select>
+
+</app-form-group>

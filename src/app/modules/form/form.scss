@@ -1,0 +1,45 @@
+.form-control,
+.form-select {
+	--height: 40px;
+    min-height: var(--height);
+
+    &:focus {
+        border-color: var(--bs-success);
+        //box-shadow: 0 0 0 0.25rem var(--bs-success);
+        box-shadow: none;
+    }
+}
+
+.input-wrapper {
+	position: relative;
+
+	i {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		padding: 0 0.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+input.icon {
+	position: relative;
+
+	&:after {
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+		font-family: "Font Awesome 6 Pro";
+    	font-weight: 400;
+	    content: "\f04c";
+	}
+}
+
+.can-create-link {
+	display: block;
+	margin: -0.25rem 0 0.5rem;
+}

@@ -1,0 +1,15 @@
+app-game-round-data {
+
+	> div {
+		background-color: #eee;
+	}
+	
+	.card-wrapper {
+		width: calc(16.66% - calc(2.5rem / 6));
+	
+		app-game-card {
+			--font-size: 20px;
+			--width: 100%;
+		}
+	}
+}

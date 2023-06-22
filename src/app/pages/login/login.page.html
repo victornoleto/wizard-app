@@ -1,0 +1,17 @@
+<h2 class="text-secondary fw-bolder mb-3">Login</h2>
+
+<app-form *ngIf="fg" [fg]="fg" (onSubmit)="onSubmit()">
+	
+	<app-form-input-text name="username" label="Nome de usuário" />
+
+	<app-form-input-password name="password" label="Senha" />
+
+	<div class="d-grid">
+		<button type="submit" class="btn btn-lg btn-primary fw-bold">Login</button>
+	</div>
+
+</app-form>
+
+<div class="d-flex justify-content-center mt-3">
+	<p>Primeira vez aqui? <a class="fw-medium text-decoration-none" [routerLink]="['/register']">Cadastre-se</a></p>
+</div>

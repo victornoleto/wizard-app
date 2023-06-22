@@ -1,0 +1,9 @@
+<div class="d-flex flex-wrap gap-2">
+
+	<app-game-card
+		*ngFor="let card of cards"
+		[card]="card"
+		(onClick)="onCardClick.emit($event)"
+	/> 
+
+</div>

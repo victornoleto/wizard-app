@@ -1,0 +1,20 @@
+<app-form-group
+	[label]="label"
+	[description]="description"
+	[name]="name"
+>
+
+	<input #input
+		[(ngModel)]="value"
+		type="date"
+		class="form-control"
+		(change)="onChange(input.value)"
+
+		[disabled]="disabled"
+		[attr.placeholder]="placeholder ? placeholder : null"
+
+		[attr.min]="min ? min : null"
+		[attr.max]="max ? max : null"
+	>
+
+</app-form-group>

@@ -1,0 +1,22 @@
+<div class="table-responsive">
+	
+	<table class="table m-0">
+		<thead>
+			<tr>
+				<th>Jogador</th>
+				<th>Aposta</th>
+				<th>Vitórias</th>
+				<th>Pontuação</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let player of players">
+				<td>{{ player.username }}</td>
+				<td>{{ player.pivot.current_bet || 0 }}</td>
+				<td>{{ player.pivot.rounds_won || 0 }}</td>
+				<td>{{ player.pivot.score || 0 }}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</div>

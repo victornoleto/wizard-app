@@ -1,0 +1,22 @@
+<input
+    #input
+    [value]="value"
+    [id]="id"
+    [type]="type"
+    [checked]="checked"
+    (change)="onChange(input.checked)"
+/>
+
+<span
+    class="flex-grow-0 flex-shrink-0 d-inline-flex position-relative border"
+></span>
+
+<label class="m-0 ms-2 fw-normal user-select-none" [for]="id">
+    
+    <ng-container *ngIf="text">{{ text }}</ng-container>
+
+    <ng-content></ng-content>
+    
+    <small *ngIf="description" class="opacity-50 m-0 mt-1 d-block">{{ description }}</small>
+
+</label>

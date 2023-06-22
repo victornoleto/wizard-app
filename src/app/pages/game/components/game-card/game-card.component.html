@@ -1,0 +1,8 @@
+<div
+	[attr.data-suit-id]="card.suit_id"
+	[attr.data-value]="card.value"
+	[class.opacity-25]="card.played"
+	(click)="onClick.emit(card)"
+>
+	<span>{{ card.value || card.name }}</span>
+</div>

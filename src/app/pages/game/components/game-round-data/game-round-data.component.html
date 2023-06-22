@@ -1,0 +1,22 @@
+<div class="rounded p-2">
+	
+	<small *ngIf="message" class="opacity-50">{{ message }}</small>
+
+	<small class="d-block mb-1" *ngIf="data.winner"><b>{{ data.winner.player.username | ucfirst }}</b> venceu o round com a carta <span>{{ data.winner.card.name }}</span></small>
+	
+	<p class="mb-1 fw-bold">Partida {{ data.matchIndex }} — Round {{ data.index }}</p>
+
+	<div class="d-flex flex-wrap gap-2">
+
+		<div class="card-wrapper d-flex flex-column align-items-center" *ngFor="let play of data.plays">
+
+			<small class="opacity-75">{{ play.player.username }}</small>
+
+			<app-game-card [card]="play.card" /> 
+
+		</div>
+
+	</div>
+
+
+</div>
