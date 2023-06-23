@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import { HttpService } from 'src/app/services/http.service';
 
 @Injectable({
@@ -10,6 +9,18 @@ export class GameService {
     constructor(
 		private httpService: HttpService
 	) { }
+
+	public create(body: any) {
+		return this.httpService.post('/game', body);
+	}
+
+	public get() {
+		return this.httpService.get('/games');
+	}
+
+	public show(id: number) {
+		return this.httpService.get(`/game/${id}`);
+	}
 
 	public join(id: number) {
 		return this.httpService.post(`/game/${id}/join`);

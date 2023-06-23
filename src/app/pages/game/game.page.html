@@ -1,64 +1,67 @@
-<app-header>
+<app-header [attr.data-joker-id]="((game && !game.ended_at) && joker) ? joker.id : null">
+
+	<a
+		[routerLink]="['/app/games']"
+		class="btn btn-sm me-2 fw-bold"
+		[class.btn-outline-dark]="!joker || joker.id == 4"
+		[class.btn-outline-light]="joker && joker.id != 4"
+	>
+			Voltar
+	</a>
 	
 	Jogo {{ gameId }}
 
-	<ng-container *ngIf="game && game.current_match && game.current_round">
-		<small>Partida {{ game.current_match }}/{{ game.end_match }} — Round {{ game.current_round }}/{{ game.current_match }}</small>
-	</ng-container>
+	<ng-container end *ngIf="game && !game.ended_at">
 
-	<ng-container end *ngIf="game && !game.started_at && game.created_by == user.id">
-		<button type="button" class="btn btn-sm btn-dark ms-auto fw-bold" (click)="start()">Iniciar</button>
+		<!-- <app-joker-card class="ms-auto" *ngIf="joker" [joker]="joker" /> -->
+
+		<button
+			*ngIf="!joined"
+			type="button"
+			class="btn btn-sm btn-dark ms-auto fw-bold"
+			(click)="join()">Entrar
+		</button>
+
+		<button
+			*ngIf="game.created_by == user.id"
+			type="button"
+			class="btn btn-sm btn-dark ms-auto fw-bold"
+			(click)="start()">Iniciar
+		</button>
+
 	</ng-container>
 
 </app-header>
 
-<app-game-status-bar *ngIf="message" [message]="message" />
+<app-game-status-bar *ngIf="message" [message]="message" [highlight]="requestCard || requestBet" />
 
-<div #slider class="swiper">
+<div #slider class="swiper" *ngIf="game">
 
 	<div class="swiper-wrapper">
 
-		<div class="swiper-slide">
-			
+		<div class="swiper-slide" *ngIf="!game.ended_at">
+
 			<app-body>
 
-				<!-- <button type="button" class="btn btn-primary" (click)="onRequestCard()">onRequestCard</button>
-				<button type="button" class="btn btn-primary" (click)="onRequestBet()">onRequestBet</button> -->
+				<app-players-table [players]="players" [game]="game" />
 
-				<ng-container *ngIf="!joined">
-					
-					<div class="d-flex ion-justify-content-center m-3">
-						<button type="button" class="btn btn-lg btn-dark fw-bold" (click)="join()">Entrar</button>
-					</div>
+				<app-game-request-bet *ngIf="requestBet" [n]="cards.length" (onBet)="onBet($event)" />
 
-				</ng-container>
+				<app-game-round-data class="mt-3" *ngIf="lastRoundData && !requestBet" [data]="lastRoundData" message="Último round" />
 
-				<ng-container *ngIf="joined">
+				<app-game-round-data class="mt-3" *ngIf="currentRoundData" [data]="currentRoundData" message="Round atual" />
 
-					<span *ngIf="joker">O coringa é {{ joker.name }} {{ joker.symbol }}</span>
-
-					<app-players-table [players]="players" />
-
-					<app-game-request-bet *ngIf="requestBet" [n]="cards.length" (onBet)="onBet($event)" />
-
-					<app-game-round-data class="mt-3" *ngIf="lastRoundData" [data]="lastRoundData" message="Último round" />
-
-					<app-game-round-data class="mt-3" *ngIf="currentRoundData" [data]="currentRoundData" message="Round atual" />
-
-					<app-game-my-cards [cards]="cards" (onCardClick)="onCardSelect($event)" />
-
-				</ng-container>
-
-				<!-- <pre *ngIf="game">{{ game | json }}</pre> -->
-				<!-- <pre>{{ requestBet | json }}</pre> -->
+				<app-game-my-cards *ngIf="cards" [cards]="cards" (onCardClick)="onCardSelect($event)" />
 
 			</app-body>
 
 		</div>
 
-		<div class="swiper-slide" *ngIf="joined && roundsData.length > 0">
+		<div class="swiper-slide" *ngIf="roundsData.length > 0">
 
 			<app-body>
+
+				<app-players-table *ngIf="game && game.ended_at" class="mb-3" [players]="players" [game]="game" />
 				
 				<div id="rounds-data" class="d-flex flex-column-reverse gap-2">
 					<app-game-round-data *ngFor="let data of roundsData" [data]="data" />
@@ -68,7 +71,7 @@
 
 		</div>
 
-		<div class="swiper-slide" *ngIf="joined">
+		<div class="swiper-slide">
 
 			<app-body>
 				<app-game-log [logs]="logs" />

@@ -1,10 +1,13 @@
 app-header {
+	--bg-color: #eee;
+	--color: var(--bs-dark);
 	padding: 1rem;
 	display: flex;
 	align-items: center;
-	background-color: #eee;
+	background-color: var(--bg-color);
 
 	h3 {
+		color: var(--color);
 		margin: 0;
 		white-space: nowrap;
 		overflow: hidden;

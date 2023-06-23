@@ -1,3 +1,6 @@
-<div class="status-bar w-100 p-2 bg-secondary text-light text-center">
+<div
+	class="status-bar w-100 p-2 bg-secondary text-light text-center"
+	[class.highlight]="highlight"
+>
 	<p class="m-0" [innerHtml]="message"></p>
 </div>

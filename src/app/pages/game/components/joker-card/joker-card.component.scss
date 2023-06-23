@@ -1,0 +1,28 @@
+div {
+	--bg-color: transparent;
+	width: 50px;
+	aspect-ratio: 1;
+	background-color: var(--bg-color);
+
+	&[data-suit-id="1"] {
+		--bg-color: var(--color-blue);
+	}
+
+	&[data-suit-id="2"] {
+		--bg-color: var(--color-red);
+	}
+
+	&[data-suit-id="3"] {
+		--bg-color: var(--color-green);
+	}
+
+	&[data-suit-id="4"] {
+		--bg-color: var(--color-yellow);
+	}
+
+	img {
+		width: 65%;
+		filter: invert(1);
+		margin-top: -3px;
+	}
+}

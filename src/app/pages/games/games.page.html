@@ -1,13 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>games</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header>
+	
+	Jogos
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">games</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+	<ng-container end>
+		<a type="button" class="btn btn-sm btn-dark ms-auto fw-bold" [routerLink]="['/app/game/create']">Criar</a>
+	</ng-container>
+
+</app-header>
+
+<app-body>
+
+	<ul class="">
+
+		<li *ngFor="let item of list">
+
+			<a [routerLink]="['/app/game', item.id]">Jogo {{ item.id }} — {{ item.creator.username }}</a>
+
+		</li>
+
+	</ul>
+
+</app-body>
+
+<div class="footer p-3">
+
+	<button type="button" class="btn btn-danger fw-bold" (click)="logout()">Logout</button>
+
+</div>

@@ -22,27 +22,27 @@ app-game-card {
 		//text-shadow: 2px 2px 0px #00000066;
 	
 		&[data-suit-id="1"] {
-			--bg-color: #0a56bb;
+			--bg-color: var(--color-blue);
 		}
 	
 		&[data-suit-id="2"] {
-			--bg-color: #d62913;
+			--bg-color: var(--color-red);
 		}
 	
 		&[data-suit-id="3"] {
-			--bg-color: #3a9727;
+			--bg-color: var(--color-green);
 		}
 	
 		&[data-suit-id="4"] {
-			--bg-color: #ecd439;
+			--bg-color: var(--color-yellow);
 		}
 	
 		&[data-suit-id="5"] {
-			--bg-color: #333;
+			--bg-color: var(--color-black);
 		}
 	
 		&[data-suit-id="6"] {
-			--bg-color: #ccc;
+			--bg-color: var(--color-gray);
 		}
 	}
 }

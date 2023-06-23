@@ -17,7 +17,7 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class GamePage implements OnInit {
 
-	@ViewChild('slider', { static: true }) sliderElement: ElementRef;
+	@ViewChild('slider', { static: false }) sliderElement: ElementRef;
 
 	public gameId: number;
 	public joined: boolean = false;
@@ -40,6 +40,7 @@ export class GamePage implements OnInit {
 
 	private gameChannel: Channel;
 	private userChannel: Channel;
+	private pageLoaded: boolean = false;
 	
 	constructor(
 		private route: ActivatedRoute,
@@ -49,7 +50,7 @@ export class GamePage implements OnInit {
 		private alertService: AlertService,
 		private authService: AuthService,
 		private ws: WebsocketService,
-		private toastService: ToastService
+		private toastService: ToastService,
 	) {
 
 		this.user = this.authService.user;
@@ -60,12 +61,14 @@ export class GamePage implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.loadData();
+	}
 
-		console.log(this.sliderElement);
+	ngAfterViewChecked() {
 
-		var swiper = new Swiper(this.sliderElement.nativeElement, {});
-
-		this.join();
+		if (this.sliderElement) {
+			this.loadPage();
+		}
 	}
 
 	public async join() {
@@ -74,28 +77,24 @@ export class GamePage implements OnInit {
 	
 		let onError = (error: any) => {
 
-			console.error('err', error);
-
 			loading.dismiss();
 			
 			this.alertService.error(
 				error,
-				'Não foi possível entrar no jogo',
+				'Não foi possível entrar no jogo.',
 				() => {
 					this.join();
 				},
 				{
 					okText: 'Cancelar',
 					okHandler: () => {
-						this.router.navigate(['/games']);
+						this.router.navigate(['/app/games']);
 					}
 				}
 			);
 		}
 		
 		let onSuccess = (response: any) => {
-
-			console.clear();
 
 			loading.dismiss();
 
@@ -141,7 +140,7 @@ export class GamePage implements OnInit {
 
 	public async onCardSelect(card: any) {
 
-		if (!this.requestCard) return;
+		//if (!this.requestCard) return;
 
 		let loading = await this.loadingService.show();
 	
@@ -209,12 +208,72 @@ export class GamePage implements OnInit {
 			});
 	}
 
+	private loadPage() {
+
+		if (this.pageLoaded) return;
+
+		this.pageLoaded = true;
+
+		new Swiper(this.sliderElement.nativeElement);
+	}
+
+	private async loadData() {
+
+		let loading = await this.loadingService.show();
+	
+		let onError = (error: any) => {
+
+			loading.dismiss();
+			
+			this.alertService.error(
+				error,
+				'Não foi possível carregar os dados do jogo.',
+				() => {
+					this.loadData();
+				},
+				{
+					okText: 'Cancelar',
+					okHandler: () => {
+						this.router.navigate(['/app/games']);
+					}
+				}
+			);
+		}
+		
+		let onSuccess = (response: any) => {
+
+			loading.dismiss();
+
+			this.onLoaded(response);
+		};
+	
+		this.gameService
+			.show(this.gameId)
+			.subscribe({
+				next: onSuccess,
+				error: onError
+			});
+	}
+
 	private onJoined(response: any) {
 
-		console.log('Joined', response);
-		
+		console.debug('onJoined', response);
+
 		this.joined = true;
-		
+
+		this.cards = response.cards;
+	}
+
+	private onLoaded(response: any) {
+
+		console.debug('onLoaded', response);
+
+		this.joined = response.game.created_by == this.user.id;
+
+		response.players.forEach((player: any) => {
+			if (player.id == this.user.id && !response.game.ended_at) this.join();
+		});
+
 		// Setar status atual
 		this.game = response.game;
 		this.match = response.match;
@@ -222,14 +281,14 @@ export class GamePage implements OnInit {
 		this.joker = response.joker;
 		this.players = response.players;
 		this.logs = response.logs;
-		this.cards = response.cards;
+		//this.cards = response.cards;
 		this.currentRoundData = response.currentRoundData;
 		this.roundsData = response.roundsData;
 
-		if (this.roundsData.length > 0 && this.round) {
+		if (this.roundsData.length > 0) {
 			this.lastRoundData = this.roundsData[this.roundsData.length - 1];
 		}
-
+		
 		if (response.nextPlayerToBet) {
 			this.onRequestBet(response.nextPlayerToBet);
 		}
@@ -362,8 +421,14 @@ export class GamePage implements OnInit {
 	private onGameEnded(event: any) {
 
 		console.debug('GameEnded', event);
+
+		this.message = '';
 			
 		this.game = event.game;
+
+		this.joker = null;
+
+		this.cards = [];
 	}
 
 	private onGameLog(event: any) {
@@ -384,7 +449,7 @@ export class GamePage implements OnInit {
 
 		console.debug('Winner', event);
 
-		// TODO ...
+		this.toastService.show(`O jogador ${event.player.username} venceu o jogo!`);
 	}
 
 	private onMatchCreated(event: any) {
@@ -402,7 +467,6 @@ export class GamePage implements OnInit {
 			player.pivot.rounds_won = null;
 		});
 
-		this.lastRoundData = null;
 		this.currentRoundData = null;
 	}
 
@@ -492,9 +556,11 @@ export class GamePage implements OnInit {
 					player.pivot.rounds_won++;
 
 				} else {
-					player.pivot.rounds_won = 0;
+					player.pivot.rounds_won = 1;
 				}
 			}
+
+			console.debug(player.id, event.winner.id, player.id == event.winner.id, player.pivot)
 
 		});
 
@@ -521,6 +587,8 @@ export class GamePage implements OnInit {
 
 		this.requestCard = player.id == this.user.id;
 
+		console.debug('RequestCard', player.id, this.user.id, this.requestCard, this);
+
 		if (this.requestCard) {
 			//this.toastService.show('É a sua vez de selecionar uma carta!');
 			this.message = '<b>É a sua vez de jogar uma carta!</b>';
@@ -531,6 +599,8 @@ export class GamePage implements OnInit {
 	}
 
 	private onRequestBet(player: any) {
+
+		console.debug('RequestBet', player);
 
 		this.requestBet = player.id == this.user.id;
 

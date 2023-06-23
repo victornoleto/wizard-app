@@ -9,29 +9,51 @@ const routes: Routes = [
 		loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
 	},
 	{
+		path: 'auth',
+		canActivateChild: [GuestGuard],
+		children: [
+			{
+				path: 'login',
+				loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+			},
+			/* {
+				path: 'register',
+				loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+			}, */
+			{
+				path: '',
+				redirectTo: 'login',
+				pathMatch: 'full'
+			},
+		]
+	},
+	{
+		path: 'app',
+		canActivateChild: [AuthGuard],
+		children: [
+			{
+				path: 'games',
+				loadChildren: () => import('./pages/games/games.module').then( m => m.GamesPageModule)
+			},
+			{
+				path: 'game/create',
+				loadChildren: () => import('./pages/game-create/game-create.module').then( m => m.GameCreatePageModule)
+			},
+			{
+				path: 'game/:id',
+				loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule)
+			},
+			{
+				path: '',
+				redirectTo: 'games',
+				pathMatch: 'full'
+			}
+		]
+	},
+	{
 		path: '',
-		redirectTo: 'login',
+		redirectTo: 'auth',
 		pathMatch: 'full'
-	},
-	{
-		path: 'login',
-		canActivate: [GuestGuard],
-		loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-	},
-	{
-		path: 'register',
-		canActivate: [GuestGuard],
-		loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
-	},
-	{
-		path: 'games',
-		canActivate: [AuthGuard],
-		loadChildren: () => import('./pages/games/games.module').then( m => m.GamesPageModule)
-	},
-	{
-		path: 'game/:id',
-		canActivate: [AuthGuard],
-		loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule)
 	},
 ];
 

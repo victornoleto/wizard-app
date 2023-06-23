@@ -1,0 +1,93 @@
+ion-alert {
+	--background: #fff !important;
+	--title-fs: 18px;
+	--message-fs: 15px;
+
+	.alert-wrapper {
+		@extend .shadow-lg;
+		//border-radius: calc(0.75 * #{$layout-border-radius-width}) !important;
+
+		.alert-head {
+			padding: var(--padding);
+			padding-top: 1.5rem;
+			text-align: center;
+
+			.alert-title {
+				font-size: var(--title-fs);
+				font-weight: 600;
+				margin: 0;
+			}
+
+			.alert-sub-title {
+				font-size: var(--message-fs);
+				margin: 0.5rem 0 0;
+				color: #666;
+			}
+		}
+
+		.alert-message {
+			padding: var(--padding);
+			padding-top: 0;
+			font-size: var(--message-fs);
+			line-height: 1.2;
+			margin-top: -0.25rem;
+			text-align: center;
+			color: #000;
+		}
+	}
+
+	.alert-button.sc-ion-alert-ios:last-child {
+		font-weight: normal;
+	}
+	
+	.alert-button-role-cancel {
+	}
+
+	.alert-button-group {
+		flex-direction: column !important;
+
+		.alert-button {
+			height: 50px;
+			font-size: 16px;
+			border: none !important;
+			border-top: 1px solid var(--bs-border-color) !important;
+			
+			&.btn-primary {
+				color: var(--bs-primary);
+				font-weight: 600;
+			}
+	
+			&.btn-secondary {
+				color: var(--bs-secondary);
+				font-weight: 600;
+			}
+		}
+	}
+
+}
+
+.plt-ios {
+
+	ion-alert {
+	}
+}
+
+.plt-android {
+
+	ion-alert {
+
+		.alert-button-group {
+			padding: 0;
+
+			.alert-button {
+				text-transform: none;
+				margin: 0 !important;
+
+				.alert-button-inner {
+					justify-content: center;
+					font-size: 15px;
+				}
+			}
+		}
+	}
+}

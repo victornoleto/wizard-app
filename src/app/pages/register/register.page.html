@@ -1,17 +1,21 @@
-<h2 class="text-secondary fw-bolder mb-3">Cadastro</h2>
-
-<app-form *ngIf="fg" [fg]="fg" (onSubmit)="onSubmit()">
+<div class="p-4">
 	
-	<app-form-input-text name="username" label="Nome de usuário" />
-
-	<app-form-input-password name="password" label="Senha" />
-
-	<div class="d-grid">
-		<button type="submit" class="btn btn-lg btn-primary fw-bold">Cadastrar</button>
+	<h2 class="text-secondary fw-bolder mb-3">Cadastro</h2>
+	
+	<app-form *ngIf="fg" [fg]="fg" (onSubmit)="onSubmit()">
+		
+		<app-form-input-text name="username" label="Nome de usuário" />
+	
+		<app-form-input-password name="password" label="Senha" />
+	
+		<div class="d-grid">
+			<button type="submit" class="btn btn-lg btn-primary fw-bold">Cadastrar</button>
+		</div>
+	
+	</app-form>
+	
+	<div class="d-flex justify-content-center mt-3">
+		<p><a class="fw-medium text-decoration-none" [routerLink]="['/auth/login']">Voltar para o Login</a></p>
 	</div>
 
-</app-form>
-
-<div class="d-flex justify-content-center mt-3">
-	<p><a class="fw-medium text-decoration-none" [routerLink]="['/login']">Voltar para o Login</a></p>
 </div>

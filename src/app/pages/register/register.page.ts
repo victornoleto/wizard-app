@@ -39,8 +39,6 @@ export class RegisterPage implements OnInit {
 				next: () => {
 
 					loading.dismiss();
-
-					console.log('deu certo!');
 				},
 				error: err => {
 

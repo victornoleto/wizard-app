@@ -41,14 +41,18 @@ export class LoginPage implements OnInit {
 				next: () => {
 
 					loading.dismiss();
-
-					console.log('deu certo!');
 				},
-				error: err => {
+				error: error => {
 
 					loading.dismiss();
 		
-					this.alertService.error(err, 'Não foi possível fazer o login.',);
+					this.alertService.error(
+						error,
+						'Não foi possível fazer o login.',
+						() => {
+							this.onSubmit();
+						}
+					);
 				}
 			});
 	}
@@ -56,7 +60,7 @@ export class LoginPage implements OnInit {
 	private createForm() {
 
 		this.fg = this.fb.group({
-			username: ['victor', [Validators.required]],
+			username: ['', [Validators.required]],
 			password: ['sysout', Validators.required]
 		});
 	}

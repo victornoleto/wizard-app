@@ -17,3 +17,25 @@
 		flex-direction: column;
 	}
 }
+
+app-header {
+	
+	&[data-joker-id="1"] {
+		--bg-color: var(--color-blue);
+		--color: #fff;
+	}
+
+	&[data-joker-id="2"] {
+		--bg-color: var(--color-red);
+		--color: #fff;
+	}
+
+	&[data-joker-id="3"] {
+		--bg-color: var(--color-green);
+		--color: #fff;
+	}
+
+	&[data-joker-id="4"] {
+		--bg-color: var(--color-yellow);
+	}
+}

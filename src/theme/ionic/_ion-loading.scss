@@ -1,0 +1,16 @@
+ion-loading {
+
+	.loading-wrapper {
+		all: unset !important;
+
+		.loading-spinner {
+
+			ion-spinner {
+				--size: 30px;
+				--spinner-color: var(--bs-gray-500);
+				width: var(--size);
+				height: var(--size);
+			}
+		}
+	}
+}

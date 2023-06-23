@@ -16,6 +16,7 @@ import { GameMyCardsComponent } from './components/game-my-cards/game-my-cards.c
 import { GameRequestBetComponent } from './components/game-request-bet/game-request-bet.component';
 import { GameStatusBarComponent } from './components/game-status-bar/game-status-bar.component';
 import { GameRoundDataComponent } from './components/game-round-data/game-round-data.component';
+import { JokerCardComponent } from './components/joker-card/joker-card.component';
 
 @NgModule({
 	imports: [
@@ -35,7 +36,8 @@ import { GameRoundDataComponent } from './components/game-round-data/game-round-
 		GameCardComponent,
 		GameRequestBetComponent,
 		GameStatusBarComponent,
-		GameRoundDataComponent
+		GameRoundDataComponent,
+		JokerCardComponent
 	]
 })
 export class GamePageModule {}

@@ -96,8 +96,6 @@ export class AuthService {
             .pipe(
                 map((response: any) => {
 
-                    console.log('entrou aqui?', response);
-
                     // Criar token
                     this.httpService.createToken(username, password);
 

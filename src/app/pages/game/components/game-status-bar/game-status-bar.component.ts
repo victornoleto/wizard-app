@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class GameStatusBarComponent  implements OnInit {
 
 	@Input() message: string;
+	@Input() highlight: boolean;
 	
 	constructor() { }
 	

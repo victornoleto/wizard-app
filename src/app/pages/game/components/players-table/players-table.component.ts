@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlayersTableComponent  implements OnInit {
 
+	@Input() game: any;
 	@Input() players: any[] = [];
 	
 	constructor() { }

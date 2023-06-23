@@ -19,8 +19,6 @@ export class WebsocketService {
 		this.Pusher = Pusher;
 
 		this.Echo = new Echo(environment.echo);
-	
-		console.log('echo?', this.Echo);
 	}
 
 	public channel(channel: string) {

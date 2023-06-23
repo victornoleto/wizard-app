@@ -2,18 +2,21 @@
 	
 	<table class="table m-0">
 		<thead>
+			<tr *ngIf="game && !game.ended_at && game.current_match">
+				<th colspan="4" class="fw-normal pt-0 opacity-50"><small>Partida {{ game.current_match }}/{{ game.end_match }} — Round {{ game.current_round || 1 }}/{{ game.current_match }}</small></th>
+			</tr>
 			<tr>
-				<th>Jogador</th>
-				<th>Aposta</th>
-				<th>Vitórias</th>
-				<th>Pontuação</th>
+				<th [class.pt-0]="!game || game.ended_at">Jogador</th>
+				<th [class.pt-0]="!game || game.ended_at">Aposta</th>
+				<th [class.pt-0]="!game || game.ended_at">Vitórias</th>
+				<th [class.pt-0]="!game || game.ended_at">Pontuação</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let player of players">
 				<td>{{ player.username }}</td>
-				<td>{{ player.pivot.current_bet || 0 }}</td>
-				<td>{{ player.pivot.rounds_won || 0 }}</td>
+				<td>{{ player.pivot.current_bet === null ? '-' : player.pivot.current_bet }}</td>
+				<td>{{ player.pivot.rounds_won === null ? '-' : player.pivot.rounds_won }}</td>
 				<td>{{ player.pivot.score || 0 }}</td>
 			</tr>
 		</tbody>
