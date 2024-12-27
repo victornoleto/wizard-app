@@ -1,7 +1,7 @@
 <app-header [attr.data-joker-id]="((game && !game.ended_at) && joker) ? joker.id : null">
 
 	<a
-		[routerLink]="['/app/games']"
+		[routerLink]="['/app/game/create']"
 		class="btn btn-sm me-2 fw-bold"
 		[class.btn-outline-dark]="!joker || joker.id == 4"
 		[class.btn-outline-light]="joker && joker.id != 4"
@@ -9,7 +9,7 @@
 			Voltar
 	</a>
 	
-	Jogo {{ gameId }}
+	# {{ gameId }}
 
 	<ng-container end *ngIf="game && !game.ended_at">
 
@@ -44,6 +44,8 @@
 			<app-body>
 
 				<app-players-table [players]="players" [game]="game" />
+
+				<i class="fas fa-star"></i>
 
 				<app-game-request-bet *ngIf="requestBet" [n]="cards.length" (onBet)="onBet($event)" />
 

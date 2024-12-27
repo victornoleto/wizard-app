@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 export class GameCardComponent  implements OnInit {
 
 	@Input() card: any;
+	@Input() winning: boolean = false;
 
 	@Output() onClick = new EventEmitter<any>();
 	

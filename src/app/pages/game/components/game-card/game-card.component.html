@@ -2,6 +2,7 @@
 	[attr.data-suit-id]="card.suit_id"
 	[attr.data-value]="card.value"
 	[class.opacity-25]="card.played"
+	[class.winning]="winning"
 	(click)="onClick.emit(card)"
 >
 	<span>{{ card.value || card.name }}</span>

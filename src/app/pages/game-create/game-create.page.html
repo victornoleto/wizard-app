@@ -1,25 +1,47 @@
-<app-header>
+<!-- <app-header>
 
 	<a [routerLink]="['/app/games']" class="btn btn-sm btn-outline-dark me-2">Voltar</a>
 	
 	Criar novo jogo
 
-</app-header>
+</app-header> -->
 
 <app-body>
 
-	<app-form *ngIf="fg" [fg]="fg" (onSubmit)="onSubmit()">
+	<div class="d-flex flex-column">
+
+		<div id="join">
+
+			<app-form *ngIf="joinFg" [fg]="joinFg" (onSubmit)="onJoinSubmit()">
+				
+				<app-form-input-number name="game_id" placeholder="Código" />
+		
+				<div class="d-grid">
+					<button type="submit" class="btn btn-lg btn-dark fw-bold">Entrar</button>
+				</div>
+
+				<h3 class="d-block my-3 text-center">ou</h3>
+
+				<div class="d-grid">
+					<button type="button" class="btn btn-lg btn-dark fw-bold" (click)="newGame()">Criar Novo Jogo</button>
+				</div>
+			
+			</app-form>
+
+		</div>
+
+	</div>
+
+	<!-- <app-form *ngIf="fg" [fg]="fg" (onSubmit)="onSubmit()">
 		
 		<app-form-input-number name="start_match" label="Partida inicial" />
 
 		<app-form-input-number name="max_matches" label="Máximo de partidas" />
 
-		<pre>{{ fg.value | json }}</pre>
-	
 		<div class="d-grid">
 			<button type="submit" class="btn btn-lg btn-primary fw-bold">Criar</button>
 		</div>
 	
-	</app-form>
+	</app-form> -->
 
 </app-body>

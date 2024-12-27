@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -11,10 +11,13 @@ import { ToastService } from 'src/app/services/toast.service';
 	selector: 'app-game-create',
 	templateUrl: './game-create.page.html',
 	styleUrls: ['./game-create.page.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class GameCreatePage implements OnInit {
 	
 	public fg: FormGroup;
+
+	public joinFg: FormGroup;
 	
 	constructor(
 		private fb: FormBuilder,
@@ -29,14 +32,21 @@ export class GameCreatePage implements OnInit {
 		this.createForm();
 	}
 
-	public async onSubmit() {
+	public async onJoinSubmit() {
+
+		let gameId = this.joinFg.value.game_id;
+
+		this.router.navigate(['/app/game/', gameId]);
+	}
+
+	async newGame() {
 
 		let loading = await this.loadingService.show();
 
-		let body = this.fg.value;
+		//let body = this.fg.value;
 
 		this.gameService
-			.create(body)
+			.create({})
 			.subscribe({
 				next: (game: any) => {
 
@@ -54,12 +64,12 @@ export class GameCreatePage implements OnInit {
 						error,
 						'Não foi possível criar o jogo.',
 						() => {
-							this.onSubmit();
+							this.newGame();
 						},
 						{
 							okText: 'Cancelar',
 							okHandler: () => {
-								this.router.navigate(['/app/games']);
+								//this.router.navigate(['/app/games']);
 							}
 						}
 					);
@@ -73,6 +83,9 @@ export class GameCreatePage implements OnInit {
 			start_match: [1, [Validators.required]],
 			max_matches: [20, Validators.required]
 		});
+
+		this.joinFg = this.fb.group({
+			game_id: ['', Validators.required]
+		});
 	}
-	
 }

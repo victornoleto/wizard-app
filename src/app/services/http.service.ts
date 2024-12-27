@@ -31,9 +31,11 @@ export class HttpService {
 
         let credentials = `${username}:${password}`;
 
-        let hash = btoa(credentials);
+        /* let hash = btoa(credentials);
 
-        let token = `Basic ${hash}`;
+        let token = `Basic ${hash}`; */
+
+        let token = credentials;
 
         this.setToken(token);
     }

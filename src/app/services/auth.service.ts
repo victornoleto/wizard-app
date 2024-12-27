@@ -57,14 +57,14 @@ export class AuthService {
         }
     }
 
-	public login(username: string, password: string): Observable<void> {
+	public login(username: string): Observable<void> {
 
-		return this.auth(username, password, '/login');
+		return this.auth(username, '/login');
 	}
 
-    public register(username: string, password: string): Observable<void>{
+    public register(username: string): Observable<void>{
 
-        return this.auth(username, password, '/register');
+        return this.auth(username, '/register');
     }
 
     public logout(): void {
@@ -89,15 +89,15 @@ export class AuthService {
 		this.authState.next(this.authCurrentState);
 	}
 
-    private auth(username: string, password: string, url: string): Observable<void> {
+    private auth(username: string, url: string): Observable<void> {
 
         let r = this.httpService
-            .post(url, { username, password })
+            .post(url, { username })
             .pipe(
                 map((response: any) => {
 
                     // Criar token
-                    this.httpService.createToken(username, password);
+                    this.httpService.createToken(username, response.current_hash);
 
                     // Salvar usuário no storage
                     this.storageService.set('user', response);

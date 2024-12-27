@@ -1,15 +1,20 @@
 <div class="p-4">
 
-	<h2 class="text-secondary fw-bolder mb-3">Login</h2>
+	<h1 class="text-primary fw-bolder mb-3">Login</h1>
 	
 	<app-form *ngIf="fg" [fg]="fg" (onSubmit)="onSubmit()">
 		
-		<app-form-input-text name="username" label="Nome de usuário" />
+		<app-form-input-text
+			name="username"
+			label="Nome de usuário"
+			description="Qual é o seu nome de guerra?"
+			[maxlength]="12"
+		/>
 	
-		<app-form-input-password name="password" label="Senha" />
+		<!-- <app-form-input-password name="password" label="Senha" /> -->
 	
-		<div class="d-grid">
-			<button type="submit" class="btn btn-lg btn-primary fw-bold">Login</button>
+		<div class="d-flex justify-content-end">
+			<button type="submit" class="btn btn-lg btn-primary fw-bold w-100">Login</button>
 		</div>
 	
 	</app-form>

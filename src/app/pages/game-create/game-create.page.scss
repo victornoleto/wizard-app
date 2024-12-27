@@ -1,3 +1,25 @@
 app-body {
 	flex-grow: 1;
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	margin-top: -90px;
+}
+
+#join {
+
+	.form-control, .errors li {
+		text-align: center;
+	}
+
+	.form-control {
+		--height: 90px;
+		font-size: 40px;
+		font-weight: 800;
+		text-transform: uppercase;
+
+		&::placeholder {
+			color: #cccccc;
+		}
+	}
 }

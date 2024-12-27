@@ -33,10 +33,10 @@ export class LoginPage implements OnInit {
 
 		let username = this.fg.get('username')?.value;
 		
-		let password = this.fg.get('password')?.value;
+		//let password = this.fg.get('password')?.value;
 
 		this.authService
-			.login(username, password)
+			.login(username)
 			.subscribe({
 				next: () => {
 
@@ -61,7 +61,7 @@ export class LoginPage implements OnInit {
 
 		this.fg = this.fb.group({
 			username: ['', [Validators.required]],
-			password: ['sysout', Validators.required]
+			//password: ['sysout', Validators.required]
 		});
 	}
 }

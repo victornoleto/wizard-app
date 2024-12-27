@@ -45,4 +45,11 @@ app-game-card {
 			--bg-color: var(--color-gray);
 		}
 	}
+
+	.winning::after {
+		content: '👑';
+		position: absolute;
+		top: 0;
+		font-size: 18px;
+	}
 }

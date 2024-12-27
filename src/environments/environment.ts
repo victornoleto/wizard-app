@@ -10,7 +10,7 @@ export const environment = {
 		secret: '42HKbk4cACFjOnSiN9TXRVw3Z5awqgkc0mfNzUn1',
 	},
 	redirects: {
-		auth: 'app/games',
+		auth: 'app/game/create',
 		guest: 'auth/login'
 	},
 	echo: {

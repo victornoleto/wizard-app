@@ -88,7 +88,7 @@ export class GamePage implements OnInit {
 				{
 					okText: 'Cancelar',
 					okHandler: () => {
-						this.router.navigate(['/app/games']);
+						this.router.navigate(['/app/game/create']);
 					}
 				}
 			);
@@ -234,7 +234,7 @@ export class GamePage implements OnInit {
 				{
 					okText: 'Cancelar',
 					okHandler: () => {
-						this.router.navigate(['/app/games']);
+						this.router.navigate(['/app/game/create']);
 					}
 				}
 			);
