@@ -5,20 +5,13 @@ import {
     linkedSignal,
     WritableSignal,
 } from '@angular/core';
-import {
-    BreadcrumbComponent,
-    BreadcrumbItem,
-} from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { PageHeaderControlsComponent } from '@app/shared/components/page-header-controls/page-header-controls.component';
 import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
 
 @Component({
     selector: 'app-games-page-header',
-    imports: [
-        BreadcrumbComponent,
-        PageHeaderComponent,
-        PageHeaderControlsComponent,
-    ],
+    imports: [PageHeaderComponent, PageHeaderControlsComponent],
     templateUrl: './games-page-header.component.html',
     styleUrl: './games-page-header.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

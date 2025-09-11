@@ -14,6 +14,7 @@ export class Dashboard {
 
     logout() {
         this.authService.logout();
+        this.router.navigate(['/login']);
     }
 
     getUserData() {

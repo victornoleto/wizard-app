@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -10,7 +9,7 @@ import { CardComponent } from './../../../../components/card/card.component';
 
 @Component({
     selector: 'app-game-user-cards',
-    imports: [CardComponent, JsonPipe],
+    imports: [CardComponent],
     templateUrl: './game-user-cards.component.html',
     styleUrl: './game-user-cards.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

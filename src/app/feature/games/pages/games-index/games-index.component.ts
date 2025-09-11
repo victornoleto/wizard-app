@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -33,7 +32,6 @@ import { GamesTableComponent } from './components/games-table/games-table.compon
         PageIndexCardComponent,
         PageIndexMessagesComponent,
         GameCreateModalComponent,
-        JsonPipe,
     ],
     templateUrl: './games-index.component.html',
     styleUrl: './games-index.component.scss',

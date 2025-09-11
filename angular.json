@@ -44,11 +44,10 @@
                 "build": {
                     "builder": "@angular/build:application",
                     "options": {
-                        "outputPath": "dist",
+                        "outputPath": "../wizard-api/public/dist",
+                        "index": "src/index.html",
                         "browser": "src/main.ts",
-                        "polyfills": [
-                            "@angular/localize/init"
-                        ],
+                        "polyfills": ["@angular/localize/init"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
@@ -80,6 +79,7 @@
                                 }
                             ],
                             "outputHashing": "all",
+                            "baseHref": "/",
                             "fileReplacements": [
                                 {
                                     "replace": "src/env.ts",
@@ -90,7 +90,8 @@
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "baseHref": "/"
                         }
                     },
                     "defaultConfiguration": "production"
@@ -113,9 +114,7 @@
                 "test": {
                     "builder": "@angular/build:karma",
                     "options": {
-                        "polyfills": [
-                            "@angular/localize/init"
-                        ],
+                        "polyfills": ["@angular/localize/init"],
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
@@ -124,27 +123,20 @@
                                 "input": "public"
                             }
                         ],
-                        "styles": [
-                            "src/styles.scss"
-                        ]
+                        "styles": ["src/styles.scss"]
                     }
                 },
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
+                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
                     }
                 }
             }
         }
     },
     "cli": {
-        "schematicCollections": [
-            "angular-eslint"
-        ],
+        "schematicCollections": ["angular-eslint"],
         "analytics": false
     }
 }

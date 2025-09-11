@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -23,7 +23,6 @@ import {
 @Component({
     selector: 'app-games-table',
     imports: [
-        DatePipe,
         TableSortableDirective,
         PaginationComponent,
         TableButtonsComponent,

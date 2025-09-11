@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -16,7 +16,6 @@ import { ToastService } from '@app/shared/services/toast.service';
 import { WebsocketService } from '@app/shared/services/websocket.service';
 import { getErrorMessage } from '@app/shared/utils/http.utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { GamesPageHeaderComponent } from '../../components/games-page-header/games-page-header.component';
 import {
     Card,
     Game,
@@ -42,9 +41,7 @@ import { GameUsersTableComponent } from './partials/game-users-table/game-users-
     selector: 'app-game-show',
     imports: [
         NgbNavModule,
-        GamesPageHeaderComponent,
         PageIndexCardComponent,
-        JsonPipe,
         DatePipe,
         GameBetComponent,
         GameUserCardsComponent,
