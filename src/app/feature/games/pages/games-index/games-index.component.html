@@ -3,7 +3,7 @@
         <app-game-create-modal></app-game-create-modal>
     </app-games-page-header>
 
-    <app-page-index-card>
+    <app-page-index-card [subtitle]="null">
         @if (records().data.length > 0) {
             <app-games-table
                 [games]="records()"

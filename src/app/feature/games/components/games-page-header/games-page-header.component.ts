@@ -19,9 +19,7 @@ import { PageHeaderComponent } from '@app/shared/components/page-header/page-hea
 export class GamesPageHeaderComponent {
     title = input<string>('Jogos');
 
-    subtitle = input<string | null>(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    );
+    subtitle = input<string | null>(null);
 
     mainBreadcrumbLink = input<boolean>(false);
 

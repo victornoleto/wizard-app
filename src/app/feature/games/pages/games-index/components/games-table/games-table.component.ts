@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -29,7 +28,6 @@ import {
         FormsModule,
         LoadingDirective,
         RouterLink,
-        JsonPipe,
     ],
     templateUrl: './games-table.component.html',
     styleUrl: './games-table.component.scss',

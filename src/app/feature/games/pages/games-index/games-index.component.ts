@@ -57,31 +57,33 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
     ngOnInit(): void {
         const gamesChannel = this.wsService.channel('Games');
 
-        const auth = this.authService.user();
-
-        gamesChannel.listen('.Created', (game: Game) => {
-            console.log('Games.Created', game);
-
-            const perPage = this.pagination().perPage;
-
-            // Redirecionar para a página do jogo
-            if (game.creator.id === auth?.id) {
-                this.router.navigate(['/games', game.id]);
-            }
-
-            this.records.update((current) => {
-                return {
-                    ...current,
-                    data: [game, ...current.data.slice(0, perPage - 1)],
-                    total: current.total + 1,
-                };
-            });
-        });
+        gamesChannel.listen('.Created', this.onGameCreated.bind(this));
     }
 
     override searchObservable(
         search: Search<Filters>,
     ): Observable<LengthAwarePaginator<Game>> {
         return this.usersService.get(search);
+    }
+
+    private onGameCreated(game: Game) {
+        console.log('Games.Created', game);
+
+        const perPage = this.pagination().perPage;
+
+        const auth = this.authService.user();
+
+        // Redirecionar para a página do jogo
+        if (game.creator.id === auth?.id) {
+            this.router.navigate(['/game', game.id]);
+        }
+
+        this.records.update((current) => {
+            return {
+                ...current,
+                data: [game, ...current.data.slice(0, perPage - 1)],
+                total: current.total + 1,
+            };
+        });
     }
 }
