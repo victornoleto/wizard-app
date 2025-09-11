@@ -1,0 +1,22 @@
+@if (tags().length > 0) {
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        @for (tag of tags(); track $index) {
+            <div class="filter-tag">
+                @if (tag.label) {
+                    <small class="filter-tag-label text-muted"
+                        >{{ tag.label }}:</small
+                    >
+                }
+                <span class="filter-tag-text">{{ tag.value }}</span>
+                @if (tag.removable) {
+                    <button
+                        class="btn p-0 filter-tag-remove"
+                        (click)="remove(tag)"
+                    >
+                        <i class="fal fa-times"></i>
+                    </button>
+                }
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,16 @@
+<button type="button" class="btn btn-light" (click)="open.emit()">
+    <div class="d-flex align-items-center gap-1">
+        <i
+            [class.fal]="totalAppliedFilters() === 0"
+            [class.fas]="totalAppliedFilters() > 0"
+            class="fa-filter"
+        ></i>
+        @if (totalAppliedFilters() === 0) {
+            <span>Abrir filtros</span>
+        } @else if (totalAppliedFilters() === 1) {
+            <span>{{ totalAppliedFilters() }} filtro aplicado</span>
+        } @else {
+            <span>{{ totalAppliedFilters() }} filtros aplicados</span>
+        }
+    </div>
+</button>

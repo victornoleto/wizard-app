@@ -1,0 +1,62 @@
+<div class="table-responsive" [appLoading]="isLoading()">
+    <table class="table table-bordered" [(appTableSortable)]="sort">
+        <thead>
+            <tr>
+                <th data-sort="id">ID</th>
+                <th>Status</th>
+                <th data-sort="owner.name">Criador</th>
+                <th>Partida</th>
+                <th>Round</th>
+                <!-- <th>Dt. inicio</th>
+                <th>Dt. fim</th> -->
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (game of games().data; track game.id) {
+                <tr>
+                    <td>{{ game.id }}</td>
+                    <td>
+                        @if (game.ended_at) {
+                            <span class="badge bg-secondary">Finalizado</span>
+                        } @else if (game.started_at) {
+                            <span class="badge bg-success">Em andamento</span>
+                        } @else {
+                            <span class="badge bg-info">Aguardando início</span>
+                        }
+                    </td>
+                    <td>{{ game.creator.name }}</td>
+                    <td>
+                        {{ game.current_match || 0 }}/{{ game.max_matches }}
+                    </td>
+                    <td>
+                        {{ game.current_round || 0 }}/{{
+                            game.current_match || 0
+                        }}
+                    </td>
+                    <!-- <td>{{ game.created_at | date }}</td>
+                    <td>{{ game.started_at | date }}</td>
+                    <td>{{ game.ended_at | date }}</td> -->
+                    <td>
+                        <app-table-buttons>
+                            <a
+                                [routerLink]="['/game', game.id]"
+                                class="btn btn-table-button text-success-hover"
+                                title="Entrar no jogo"
+                            >
+                                <i class="fal fa-sign-in-alt"></i>
+                            </a>
+                        </app-table-buttons>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<pre>{{ games().data.length | json }}</pre>
+
+<app-pagination
+    [collection]="games()"
+    [(pagination)]="pagination"
+></app-pagination>

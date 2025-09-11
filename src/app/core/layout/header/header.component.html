@@ -1,0 +1,21 @@
+<nav
+    id="header"
+    class="navbar navbar-expand-lg"
+    [class.sidebar-toggled]="sidebarToggled()"
+>
+    <div class="container-fluid justify-content-start gap-3">
+        <app-btn-toggle-sidebar
+            (click)="onToggleSidebarState()"
+            [toggled]="sidebarToggled()"
+        ></app-btn-toggle-sidebar>
+        <!-- <button type="button" class="btn btn-primary">
+            Fixed Header Button
+        </button> -->
+        @if (headerContentService.customContent()) {
+            <ng-container
+                *ngTemplateOutlet="headerContentService.customContent()"
+            ></ng-container>
+        }
+        <ng-content></ng-content>
+    </div>
+</nav>

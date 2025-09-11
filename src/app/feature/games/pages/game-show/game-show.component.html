@@ -1,0 +1,137 @@
+<div id="game-show-page" class="page">
+    @if (!game().started_at) {
+        <div id="game-controls">
+            @if (!isAuthPlaying()) {
+                <button
+                    type="button"
+                    class="btn btn-lg btn-primary"
+                    (click)="join()"
+                    [disabled]="isJoining()"
+                >
+                    Entrar no jogo
+                </button>
+            }
+            @if (game().creator.id === auth()?.id) {
+                <button
+                    type="button"
+                    class="btn btn-lg btn-primary"
+                    (click)="start()"
+                    [disabled]="isStarting()"
+                >
+                    Iniciar jogo
+                </button>
+            }
+        </div>
+    }
+
+    <div class="row">
+        <div
+            class="col-12 col-md-8 col-lg-6 col-xl-4 offset-md-2 offset-lg-3 offset-xl-4"
+        >
+            <ul
+                ngbNav
+                #nav="ngbNav"
+                [(activeId)]="tab"
+                class="nav-tabs"
+                [destroyOnHide]="false"
+            >
+                <li ngbNavItem="game">
+                    <button ngbNavLink>Jogo</button>
+                    <ng-template ngbNavContent>
+                        <app-page-index-card
+                            icon="fal fa-cards"
+                            [title]="title()"
+                            [subtitle]="null"
+                        >
+                            @if (nextPlayerToPlay()?.id === auth()?.id) {
+                                <div class="alert alert-warning">
+                                    <p class="m-0">
+                                        É a <b>sua vez</b> de jogar uma carta!
+                                    </p>
+                                </div>
+                            } @else if (nextPlayerToPlay()) {
+                                <div class="alert alert-info">
+                                    <p class="m-0">
+                                        É a vez de
+                                        <b>{{
+                                            nextPlayerToPlay()?.username
+                                        }}</b>
+                                        jogar uma carta!
+                                    </p>
+                                </div>
+                            }
+
+                            <app-game-users-table
+                                [users]="players()!"
+                            ></app-game-users-table>
+
+                            @if (match() && nextPlayerToBet()) {
+                                <app-game-bet
+                                    [gameId]="game().id"
+                                    [match]="match()!"
+                                    [player]="nextPlayerToBet()!"
+                                    [isBetting]="isBetting()"
+                                    (bet)="onBet($event)"
+                                ></app-game-bet>
+                            }
+
+                            @if (lastRound()) {
+                                <app-game-round
+                                    [round]="lastRound()!"
+                                    message="Último round"
+                                ></app-game-round>
+                            }
+
+                            @if (round()) {
+                                <app-game-round
+                                    [round]="round()!"
+                                    message="Round atual"
+                                    [showWinnerMessage]="false"
+                                ></app-game-round>
+                            }
+
+                            <!-- <pre>{{ round() | json }}</pre> -->
+                            @if (userCards().length > 0) {
+                                <app-game-user-cards
+                                    [cards]="userCards()"
+                                    (play)="onPlayCard($event)"
+                                ></app-game-user-cards>
+                            }
+                        </app-page-index-card>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="logs">
+                    <button ngbNavLink>Logs</button>
+                    <ng-template ngbNavContent>
+                        <app-page-index-card
+                            icon="fal fa-list"
+                            title="Histórico de ações"
+                            [subtitle]="null"
+                        >
+                            @if (logs().length === 0) {
+                                <app-page-message
+                                    icon="🃏"
+                                    message="Nenhuma ação registrada"
+                                    details="Aguarde o início do jogo para ver as ações dos jogadores."
+                                ></app-page-message>
+                            } @else {
+                                <ul>
+                                    @for (log of logs(); track $index) {
+                                        <li>
+                                            [{{
+                                                log.created_at
+                                                    | date: "HH:mm:ss"
+                                            }}]
+                                            {{ log.message }}
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </app-page-index-card>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+section {
+
+    .section-header {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 2px;
+        margin-bottom: 8px;
+
+        legend {
+            float: unset;
+            margin: 0;
+        }
+    }
+
+    legend {
+        font-size: calc(var(--bs-body-font-size) * 1.2);
+        font-weight: 600;
+        float: unset;
+
+        i {
+            margin-right: 6px;
+        }
+    }
+
+    > legend {
+        @extend .section-header;
+    }
+}

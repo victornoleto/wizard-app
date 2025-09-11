@@ -1,0 +1,32 @@
+.modal {
+    --bs-modal-border-width: 0;
+    --bs-modal-header-border-width: 0;
+    --bs-modal-footer-border-width: 0;
+    --bs-modal-bg: #fff;
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+
+    .modal-header + .modal-body {
+        padding-top: 0;
+    }
+
+    .modal-body + .modal-footer {
+        padding-top: 0;
+    }
+
+    .modal-footer > * {
+        margin: 0;
+    }
+
+    .modal-footer {
+        justify-content: flex-start;
+
+        .btn {
+            margin: 0;
+        }
+    }
+}

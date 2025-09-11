@@ -1,0 +1,17 @@
+.dropdown {
+    
+    .dropdown-menu {
+        --bs-dropdown-bg: #fff;
+        --bs-dropdown-padding-x: 4px;
+        --bs-dropdown-padding-y: 4px;
+        --bs-dropdown-item-padding-x: 8px;
+        --bs-dropdown-item-padding-y: 6px;
+        box-shadow: 0 0.125rem 0 rgba(10, 10, 10, 0.04);
+        border-color: #ddd;
+    }
+
+    .dropdown-item {
+        border-radius: 4px;
+        line-height: 1.5;
+    }
+}

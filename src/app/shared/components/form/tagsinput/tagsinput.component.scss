@@ -1,0 +1,46 @@
+// Padronizar componente para ficar igual a um .form-control
+.tagify {
+    min-height: 40px;
+    border-radius: var(--bs-border-radius);
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--bs-body-color);
+    appearance: none;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    gap: 5px;
+    padding: 4px;
+    align-items: center;
+
+    &.tagify--focus {
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        border-color: rgb(134, 182.5, 254);
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .tagify__tag > div::before {
+        animation: none; // Desativar animação, manter o comportamento mais "limpo"
+    }
+
+    .tagify__tag,
+    .tagify__input {
+        margin: 0;
+        height: 30px;
+    }
+
+    .tagify__input {
+        padding: 6px 0px 4px;
+    }
+
+    .tagify__input:first-child {
+        padding-left: calc(0.8rem - 4px);
+    }
+
+    .tagify__tag:focus div::before,
+    .tagify__tag:hover:not([readonly]) div::before {
+        --tag-bg-inset: 0; // evitar animação de "aumentar" a tag
+    }
+}

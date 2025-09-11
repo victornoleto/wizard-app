@@ -1,0 +1,81 @@
+import {
+    Component,
+    ElementRef,
+    inject,
+    signal,
+    ViewChild,
+} from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '@app/core/auth/services/auth.service';
+import {
+    FormValidationDirective,
+    InputPasswordDirective,
+    LoadingDirective,
+} from '@app/shared/directives';
+import { AlertService } from '@app/shared/services/alert.service';
+import { getErrorMessage } from '@app/shared/utils/http.utils';
+import { LoginRequest } from '../../models/auth.model';
+
+@Component({
+    selector: 'app-login',
+    imports: [
+        ReactiveFormsModule,
+        RouterLink,
+        FormValidationDirective,
+        LoadingDirective,
+        InputPasswordDirective,
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
+})
+export class LoginComponent {
+    protected readonly authService = inject(AuthService);
+    protected readonly alertService = inject(AlertService);
+    protected readonly router = inject(Router);
+    protected readonly fb = inject(FormBuilder);
+
+    @ViewChild('alertContainer') alertContainerRef!: ElementRef<HTMLDivElement>;
+
+    readonly form = this.fb.group({
+        email: ['victor', [Validators.required]],
+        password: ['password', [Validators.required, Validators.minLength(6)]],
+    });
+
+    isLoading = signal<boolean>(false);
+    formSubmitted = signal<boolean>(false);
+
+    submit(): void {
+        this.formSubmitted.set(true);
+
+        if (this.form.invalid) {
+            return;
+        }
+
+        const credentials: LoginRequest = {
+            email: this.form.value.email || '',
+            password: this.form.value.password || '',
+        };
+
+        this.isLoading.set(true);
+
+        this.authService
+            .login(credentials)
+            .subscribe({
+                next: () => {
+                    this.router.navigate(['/dashboard']);
+                },
+                error: (error) => {
+                    this.alertService.show({
+                        message: getErrorMessage(error),
+                        title: 'Não foi possível realizar o login',
+                        type: 'error',
+                        container: this.alertContainerRef,
+                    });
+                },
+            })
+            .add(() => {
+                this.isLoading.set(false);
+            });
+    }
+}

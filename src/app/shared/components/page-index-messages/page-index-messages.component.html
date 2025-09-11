@@ -1,0 +1,28 @@
+@if (isLoading()) {
+    <app-page-message
+        [icon]="loadingIcon()"
+        [message]="loadingMessage()"
+        [details]="loadingDetails()"
+    >
+    </app-page-message>
+} @else if (errorDetails()) {
+    <app-page-message
+        [icon]="errorIcon()"
+        [message]="errorMessage()"
+        [details]="errorDetails()"
+    >
+        <button
+            type="button"
+            class="btn btn-primary mt-3"
+            (click)="refresh.emit()"
+        >
+            Tentar novamente
+        </button>
+    </app-page-message>
+} @else {
+    <app-page-message
+        [icon]="emptyIcon()"
+        [message]="emptyMessage()"
+        [details]="emptyDetails()"
+    ></app-page-message>
+}

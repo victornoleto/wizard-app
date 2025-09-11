@@ -1,0 +1,9 @@
+<div class="d-flex flex-wrap gap-2 mt-3 pt-3 border-top border-1">
+    @for (card of cards(); track $index) {
+        <app-card
+            [card]="card"
+            [played]="card.played"
+            (click)="play.emit(card)"
+        />
+    }
+</div>

@@ -1,0 +1,22 @@
+:root {
+    --color-blue: #0a56bb;
+    --color-red: #d62913;
+    --color-green: #3a9727;
+    --color-yellow: #ecd439;
+    --color-black: #333;
+    --color-gray: #ccc;
+}
+
+$colors: (
+    "primary": #0049ea,
+    "secondary": #6c757d,
+    "success": #198754,
+    "info": #0dcaf0,
+    "warning": #ffc107,
+    "danger": #dc3545,
+    "light": #fff,
+    "dark": #212529,
+
+    // light variants
+    "primary-light": #6ea8fe,
+);

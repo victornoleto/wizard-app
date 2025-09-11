@@ -1,0 +1,8 @@
+<div
+    [attr.data-suit-id]="card().suit_id"
+    [attr.data-value]="card().value"
+    [class.opacity-25]="played()"
+    [class.winning]="winning()"
+>
+    <span>{{ card().value || card().name }}</span>
+</div>

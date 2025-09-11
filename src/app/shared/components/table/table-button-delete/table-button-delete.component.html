@@ -1,0 +1,40 @@
+<button
+    #deleteButton
+    type="button"
+    class="btn btn-table-button text-danger-hover"
+    (click)="onClick(content)"
+>
+    <i class="fal fa-trash-alt"></i>
+</button>
+
+<ng-template #content let-modal>
+    <div class="modal-header d-flex flex-column align-items-start">
+        <h6 id="modal-basic-title" class="card-title fw-semibold mb-0">
+            🟡 Atenção!
+        </h6>
+        <p class="card-subtitle mb-0 text-muted mt-1">
+            Lorem ipsum dolor sit amet.
+        </p>
+    </div>
+    <div class="modal-body">
+        <p class="mb-0">Você está prestes a <b>excluir este registro.</b></p>
+        <p class="mb-0">Tem certeza de que deseja continuar?</p>
+    </div>
+    <div class="modal-footer d-flex align-items-center gap-2">
+        <button
+            type="button"
+            class="btn btn-light"
+            aria-label="Close"
+            (click)="modal.dismiss()"
+        >
+            Cancelar
+        </button>
+        <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onConfirmed(modal)"
+        >
+            Prosseguir
+        </button>
+    </div>
+</ng-template>

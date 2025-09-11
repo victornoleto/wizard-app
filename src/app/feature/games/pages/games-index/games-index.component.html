@@ -1,0 +1,22 @@
+<div id="games-index-page" class="page">
+    <app-games-page-header>
+        <app-game-create-modal></app-game-create-modal>
+    </app-games-page-header>
+
+    <app-page-index-card>
+        @if (records().data.length > 0) {
+            <app-games-table
+                [games]="records()"
+                [isLoading]="isLoading()"
+                [(sort)]="sort"
+                [(pagination)]="pagination"
+            ></app-games-table>
+        } @else {
+            <app-page-index-messages
+                [isLoading]="isLoading()"
+                [error]="error()"
+                (refresh)="refresh()"
+            ></app-page-index-messages>
+        }
+    </app-page-index-card>
+</div>

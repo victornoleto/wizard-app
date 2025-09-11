@@ -1,0 +1,23 @@
+<nav id="sidebar" [class.sidebar-toggled]="sidebarToggled()">
+    <div id="sidebar-header">
+        <a class="header-logo" [routerLink]="['/']">
+            <img src="images/logo.png" class="desktop-logo" alt="Logo" />
+            <img src="images/logo-sm.png" class="mobile-logo" alt="Logo" />
+        </a>
+    </div>
+
+    <div id="sidebar-body">
+        <div id="main-menu" class="invisible-scrollbar">
+            @for (section of sections; track section.legend) {
+                <section class="menu-section">
+                    @if (section.legend) {
+                        <legend>{{ section.legend }}</legend>
+                    }
+                    @for (child of section.children; track child.label) {
+                        <app-sidebar-menu-item [item]="child" />
+                    }
+                </section>
+            }
+        </div>
+    </div>
+</nav>

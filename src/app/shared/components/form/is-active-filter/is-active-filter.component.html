@@ -1,0 +1,11 @@
+<div class="d-flex align-items-center gap-3 mb-2">
+    @for (option of options; track $index) {
+        <app-checkbox
+            type="checkbox"
+            [fc]="fc()!"
+            [value]="option.value"
+            [id]="id() + '-' + $index"
+            >{{ option.label }}</app-checkbox
+        >
+    }
+</div>

@@ -1,0 +1,60 @@
+app-card {
+    --width: 75px;
+    --font-size: 25px;
+    width: calc(20% - calc(2rem / 5));
+    max-width: var(--width);
+    aspect-ratio: 6.4/8.9;
+    user-select: none !important;
+
+    div {
+        --bg-color: #fff;
+        --color: #fff;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: var(--font-size);
+        color: var(--color);
+        background: var(--bg-color);
+        //text-shadow: 2px 2px 0px #00000066;
+
+        &[data-suit-id="1"] {
+            --bg-color: var(--color-blue);
+        }
+
+        &[data-suit-id="2"] {
+            --bg-color: var(--color-red);
+        }
+
+        &[data-suit-id="3"] {
+            --bg-color: var(--color-green);
+        }
+
+        &[data-suit-id="4"] {
+            --bg-color: var(--color-yellow);
+        }
+
+        &[data-suit-id="5"] {
+            --bg-color: var(--color-black);
+        }
+
+        &[data-suit-id="6"] {
+            --bg-color: var(--color-gray);
+        }
+    }
+
+    .winning::after {
+        content: "👑";
+        position: absolute;
+        top: 0;
+        font-size: 18px;
+    }
+}
+
+.card-wrapper app-card {
+    width: 60px;
+}

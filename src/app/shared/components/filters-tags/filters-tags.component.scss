@@ -1,0 +1,36 @@
+:host {
+    display: block;
+}
+
+.filter-tag {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background-color: #eee;
+    border-radius: var(--bs-border-radius);
+    padding: 6px 10px 5px;
+
+    .filter-tag-label {
+        margin-right: 2px;
+    }
+
+    .filter-tag-text {
+        font-size: 13px;
+        line-height: 20px;
+        //margin-top: -1px;
+        color: #333;
+    }
+
+    .filter-tag-remove {
+        cursor: pointer;
+        color: #999;
+        font-size: 12px;
+        margin-left: 5px;
+        margin-top: 0px;
+        display: flex;
+
+        &:hover {
+            color: #666;
+        }
+    }
+}

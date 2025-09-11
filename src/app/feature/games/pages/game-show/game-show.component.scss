@@ -1,0 +1,10 @@
+:host {
+    display: block;
+}
+
+#game-controls {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}

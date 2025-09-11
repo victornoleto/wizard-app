@@ -1,0 +1,42 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Jogador</th>
+                <th>Aposta</th>
+                <th>Rounds g.</th>
+                <th>Pontos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (user of users(); track $index) {
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        {{
+                            user?.pivot?.current_bet ||
+                            user?.pivot?.current_bet === 0
+                                ? user.pivot?.current_bet
+                                : "-"
+                        }}
+                    </td>
+                    <td>
+                        {{
+                            user?.pivot?.rounds_won ||
+                            user?.pivot?.rounds_won === 0
+                                ? user.pivot?.rounds_won
+                                : "-"
+                        }}
+                    </td>
+                    <td>
+                        {{
+                            user?.pivot?.points || user?.pivot?.points === 0
+                                ? user.pivot?.points
+                                : "-"
+                        }}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

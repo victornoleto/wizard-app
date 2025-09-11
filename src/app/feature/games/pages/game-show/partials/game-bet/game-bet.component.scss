@@ -1,0 +1,16 @@
+.btn-bet-value {
+    --bs-btn-padding-x: 0;
+    --bs-btn-padding-y: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: none;
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: var(--bs-btn-bg);
+    --bs-btn-focus-color: var(--bs-btn-color);
+    --bs-btn-focus-bg: var(--bs-btn-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: var(--bs-btn-bg);
+}

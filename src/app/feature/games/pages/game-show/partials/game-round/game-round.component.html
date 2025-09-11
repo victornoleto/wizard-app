@@ -1,0 +1,40 @@
+<div class="rounded p-3 border bg-light mt-3">
+    <div class="d-flex align-items-center">
+        <small class="opacity-50">{{ message() }}</small>
+        <i
+            class="ms-auto opacity-50 cursor-pointer fal"
+            [class.fa-chevron-down]="visible()"
+            [class.fa-chevron-up]="!visible()"
+            (click)="visible.set(!visible())"
+        ></i>
+    </div>
+
+    @if (visible()) {
+        @if (showWinnerMessage(); as showWinner) {
+            @if (winner(); as roundWinner) {
+                <small class="d-block mb-1">
+                    <b>{{ roundWinner.user.username }}</b> venceu o round com a
+                    carta
+                    <span>{{ roundWinner.card.name }}</span>
+                </small>
+            }
+        }
+    }
+
+    @if (visible()) {
+        <p class="mb-1 fw-bold">
+            Partida {{ round().match_index }} — Round {{ round().index }}
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+            @for (play of round().plays; track $index) {
+                <div class="card-wrapper d-flex flex-column align-items-center">
+                    <small class="opacity-75">{{ play.user.username }}</small>
+                    <app-card [card]="play.card" [winning]="!!play.winning" />
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- <pre>{{ data | json }}</pre> -->

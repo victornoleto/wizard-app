@@ -1,0 +1,16 @@
+<div class="form-check">
+    <input
+        class="form-check-input"
+        [type]="type()"
+        [value]="value()"
+        [id]="finalId()"
+        [name]="finalName()"
+        [checked]="isChecked()"
+        [disabled]="isDisabled()"
+        (change)="onChange($event)"
+    />
+
+    <label class="form-check-label" [for]="finalId()">
+        <ng-content></ng-content>
+    </label>
+</div>

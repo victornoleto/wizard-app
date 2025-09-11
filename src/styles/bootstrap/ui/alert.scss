@@ -1,0 +1,14 @@
+.alert {
+    --bs-alert-padding-x: .75rem;
+    --bs-alert-padding-y: .75rem;
+}
+
+.alert-dismissible {
+    padding-right: 45px; // 5px + 35px (close button) + 5px
+
+    .btn-close {
+        padding: 0;
+        top: 5px;
+        right: 5px;
+    }
+}

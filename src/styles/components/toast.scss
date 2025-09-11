@@ -1,0 +1,52 @@
+.hot-toast-bar-base {
+    --bs-alert-padding-x: .5rem;
+    --bs-alert-padding-y: .5rem;
+    --bs-alert-margin-bottom: 0;
+    box-shadow: 0 0.125rem 0 rgba(10, 10, 10, 0.04);
+
+    .hot-toast-icon {
+        align-self: center;
+        padding-top: 0;
+
+        &::before {
+            font-family: "Font Awesome 6 Pro";
+            font-weight: 900;
+        }
+        
+        hot-toast-indicator {
+            display: none;
+        }
+    }
+
+    .hot-toast-close-btn {
+        font-size: 11px;
+    }
+
+    &.alert-success .hot-toast-icon {
+        color: var(--bs-success);
+        &::before {
+            content: "\f058"; // fa-check-circle
+        }
+    }
+
+    &.alert-danger .hot-toast-icon {
+        color: var(--bs-danger);
+        &::before {
+            content: "\f057"; // fa-times-circle
+        }
+    }
+
+    &.alert-warning .hot-toast-icon {
+        color: #cb9d12;
+        &::before {
+            content: "\f06a"; // fa-exclamation-circle
+        }
+    }
+
+    &.alert-info .hot-toast-icon {
+        color: #0ca4c3;
+        &::before {
+            content: "\f05a"; // fa-info-circle
+        }
+    }
+}

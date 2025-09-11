@@ -1,0 +1,8 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+// Necessário para quem usa a extensão Last Pass Password no navegador
+[data-lastpass-icon-root] {
+    display: none !important;
+}

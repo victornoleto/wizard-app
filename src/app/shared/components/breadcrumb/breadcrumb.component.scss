@@ -1,0 +1,16 @@
+ul > li {
+    display: flex;
+    align-items: center;
+    
+    &:not(:last-child)::after {
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 300;
+        content: "\f054";
+        margin: 0 .5rem;
+        font-size: 10px;
+    }
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

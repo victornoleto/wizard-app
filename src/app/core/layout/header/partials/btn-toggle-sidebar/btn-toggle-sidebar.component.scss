@@ -1,0 +1,62 @@
+.sidebar-toggle {
+    text-align: center;
+    width: 2rem;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 102;
+    transition: all 50ms ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 1rem 0.65rem;
+
+    span {
+        cursor: pointer;
+        height: 0.125rem;
+        width: 0.75rem;
+        background: #000;
+        position: absolute;
+        display: block;
+        content: "";
+        transition: all 50ms ease-in-out;
+
+        &::before,
+        &::after {
+            cursor: pointer;
+            height: 0.125rem;
+            width: 1.0625rem;
+            background: #000;
+            position: absolute;
+            display: block;
+            content: "";
+        }
+
+        &::before {
+            inset-block-start: -0.375rem;
+        }
+
+        &::after {
+            bottom: -0.375rem;
+        }
+    }
+
+    &.toggled {
+        span {
+            background-color: transparent;
+            background: 0 0 !important;
+
+            &::before {
+                inset-block-start: -1px;
+                transform: rotate(45deg);
+                bottom: 0;
+            }
+
+            &::after {
+                transform: rotate(-45deg);
+                width: 1.0625rem;
+                inset-block-start: -1px;
+            }
+        }
+    }
+}

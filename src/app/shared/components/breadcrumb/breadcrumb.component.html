@@ -1,0 +1,32 @@
+<ul class="list-unstyled d-flex align-items-center flex-wrap mb-3">
+    @for (item of items(); track $index) {
+        <li>
+            @if (item.link) {
+                <a [routerLink]="item.link">{{ item.label }}</a>
+            } @else if (item.children) {
+                <div ngbDropdown class="d-inline-block">
+                    <span ngbDropdownToggle id="dropdownBasic1">
+                        @if (item.label === "...") {
+                            <i class="far fa-ellipsis"></i>
+                        } @else {
+                            {{ item.label }}
+                        }
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        @for (child of item.children; track $index) {
+                            @if (child.link) {
+                                <a ngbDropdownItem [routerLink]="child.link">{{
+                                    child.label
+                                }}</a>
+                            } @else {
+                                <span ngbDropdownItem>{{ child.label }}</span>
+                            }
+                        }
+                    </div>
+                </div>
+            } @else {
+                {{ item.label }}
+            }
+        </li>
+    }
+</ul>

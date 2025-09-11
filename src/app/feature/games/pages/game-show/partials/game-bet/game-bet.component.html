@@ -1,0 +1,42 @@
+@if (isAuthNextPlayerToBet()) {
+    <div class="alert alert-warning mt-4">
+        <p class="m-0">É a <b>sua vez</b> de fazer uma aposta!</p>
+    </div>
+
+    <div class="d-flex flex-column align-items-center mb-4">
+        <h5 class="text-center fw-bolder m-0">
+            Qual a sua aposta para essa partida?
+        </h5>
+
+        <ul
+            class="d-flex justify-content-center flex-wrap gap-2 m-0 mt-3 list-unstyled p-0"
+        >
+            @for (option of options(); track $index) {
+                <button
+                    type="button"
+                    class="btn btn-bet-value"
+                    [class.btn-outline-primary]="option !== selected()"
+                    [class.btn-primary]="option === selected()"
+                    (click)="selected.set(option)"
+                >
+                    {{ option }}
+                </button>
+            }
+        </ul>
+
+        <button
+            [disabled]="selected() === null || isBetting()"
+            type="button"
+            class="btn btn-primary mt-3"
+            (click)="submit()"
+        >
+            Apostar
+        </button>
+    </div>
+} @else {
+    <div class="alert alert-info mt-4">
+        <p class="m-0">
+            É a vez de <b>{{ player().username }}</b> fazer uma aposta!
+        </p>
+    </div>
+}

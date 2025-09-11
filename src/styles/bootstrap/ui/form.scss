@@ -1,0 +1,43 @@
+.form-group {
+    label {
+        font-weight: 600;
+        margin-bottom: .25rem;
+    }
+
+    label + small {
+        display: block;
+        margin-top: -.25rem;
+        margin-bottom: .25rem;
+    }
+}
+
+.form-control,
+.form-select {
+    padding: 0.4rem 0.8rem;
+    min-height: 40px;
+    background-color: #fff;
+}
+
+.form-error span {
+    line-height: 18px;
+    display: block;
+}
+
+.form-check {
+    margin-bottom: 0;
+}
+
+label.required {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &::after {
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 300;
+        content: '*';
+        color: var(--bs-danger);
+        font-size: 8px;
+        padding-bottom: 1px;
+    }
+}

@@ -1,0 +1,23 @@
+// fonts
+@use 'styles/fonts/geist.css';
+@use 'styles/fonts/fontawesome.css';
+
+// bootstrap
+@use 'styles/bootstrap/bootstrap.scss';
+
+// ui
+@use 'styles/ui/section.scss';
+
+// components
+@use 'styles/components/scrollbar.scss';
+@use 'styles/components/toast.scss';
+
+// main layout
+@use 'styles/utils.scss';
+@use 'styles/layout.scss';
+
+html,
+body,
+main {
+    min-height: 100vh;
+}

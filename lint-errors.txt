@@ -1,0 +1,12 @@
+
+> angular-starter-kit@0.0.0 lint
+> ng lint --fix
+
+
+Linting "angular-starter-kit"...
+
+/var/www/confluenti/monit-frontend/src/app/shared/models/pagination.model.ts
+  33:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 1 problem (0 errors, 1 warning)
+
