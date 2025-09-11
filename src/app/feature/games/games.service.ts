@@ -75,15 +75,4 @@ export class GamesService {
             })
             .pipe(map((response) => response.status));
     }
-
-    /*
-
-
-    update(id: number, body: UserUpdateRequest): Observable<UserStoreResponse> {
-        return this.http.put<UserStoreResponse>(`${this.baseUrl}/${id}`, body);
-    }
-
-    delete(id: number): Observable<UserDeleteResponse> {
-        return this.http.delete<UserDeleteResponse>(`${this.baseUrl}/${id}`);
-    } */
 }

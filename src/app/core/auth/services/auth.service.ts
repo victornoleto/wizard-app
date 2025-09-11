@@ -5,9 +5,10 @@ import {
     RegisterRequest,
     User,
 } from '@app/core/auth/models/auth.model';
+import { BooleanResponse } from '@app/shared/models/base.model';
 import { StorageService } from '@app/shared/services/storage.service';
 import { env } from '@env';
-import { firstValueFrom, Observable, switchMap, tap } from 'rxjs';
+import { firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { OAuthToken } from '../auth.models';
 
 @Injectable({
@@ -138,5 +139,17 @@ export class AuthService {
     getAccessToken(): string | null {
         const currentToken = this.token();
         return currentToken?.access_token || null;
+    }
+
+    testPrivateChannelWebsocket(): Observable<boolean> {
+        return this.http
+            .post<BooleanResponse>(env.url + '/api/test/private-event', {})
+            .pipe(map((response) => response.status));
+    }
+
+    testPublicChannelWebsocket(): Observable<boolean> {
+        return this.http
+            .post<BooleanResponse>(env.url + '/api/test/public-event', {})
+            .pipe(map((response) => response.status));
     }
 }
