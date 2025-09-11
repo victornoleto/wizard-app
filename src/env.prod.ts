@@ -16,7 +16,7 @@ export const env: Env = {
     echo: {
         broadcaster: 'reverb',
         key: 'wizardappkey',
-        wsHost: 'wizard.local',
+        wsHost: 'wizard.noletovictor.com',
         wsPort: 80,
         wssPort: 443,
         forceTls: true,
