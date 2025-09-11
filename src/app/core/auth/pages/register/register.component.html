@@ -1,7 +1,7 @@
 <div class="card custom-card" [appLoading]="isLoading()">
     <div class="card-header">
         <h6 class="card-title fw-semibold mb-2">Cadastre-se</h6>
-        <p class="card-subtitle mb-0 text-muted">Lorem ipsum dolor sit amet</p>
+        <!-- <p class="card-subtitle mb-0 text-muted">Lorem ipsum dolor sit amet</p> -->
     </div>
 
     <div class="card-body">
@@ -13,15 +13,15 @@
             [formSubmitted]="formSubmitted()"
         >
             <div class="form-group mb-3">
-                <label for="">Nome</label>
+                <label for="">Nome de usuário</label>
                 <input
                     type="text"
                     class="form-control"
-                    formControlName="name"
+                    formControlName="username"
                     autocomplete="off"
                 />
             </div>
-            <div class="form-group mb-3">
+            <!-- <div class="form-group mb-3">
                 <label class="mb-0" for="">E-mail</label>
                 <small class="d-block text-muted mb-1"
                     >Lorem ipsum dolor sit amet.</small
@@ -32,7 +32,7 @@
                     formControlName="email"
                     autocomplete="off"
                 />
-            </div>
+            </div> -->
             <div class="form-group fc-password mb-4">
                 <label for="">Senha</label>
                 <input
@@ -43,7 +43,7 @@
                     autocomplete="off"
                 />
             </div>
-            <div class="form-group fc-password mb-4">
+            <!-- <div class="form-group fc-password mb-4">
                 <label for="">Confirmar senha</label>
                 <input
                     appInputPassword
@@ -52,7 +52,7 @@
                     formControlName="password_confirmation"
                     autocomplete="off"
                 />
-            </div>
+            </div> -->
             <button
                 type="button"
                 class="btn btn-primary w-100"

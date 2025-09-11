@@ -81,13 +81,16 @@ export class AuthService {
     }
 
     register(data: RegisterRequest): Observable<User> {
-        return this.http.post<User>(`${env.url}/api/register`, data).pipe(
+        return this.http.post<User>(
+            `${env.url}/api/auth/register`,
+            data,
+        ); /* .pipe(
             tap((user: User) => {
                 //console.debug('[AuthService] User registered', { user });
                 this.user.set(user);
                 this.authState.set(true);
             }),
-        );
+        ); */
     }
 
     getUser(): Observable<User> {

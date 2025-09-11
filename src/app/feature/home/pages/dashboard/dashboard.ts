@@ -17,14 +17,19 @@ export class Dashboard implements OnInit {
     protected readonly wsService = inject(WebsocketService);
 
     ngOnInit(): void {
+        const auth = this.authService.user();
+
         const publicChannel = this.wsService.channel('Test');
 
-        publicChannel.listen('.Message', (data: { message: string }) => {
-            console.log('Public channel message received:', data.message);
-            this.toastService.success('Canal público funcionando!');
-        });
-
-        const auth = this.authService.user();
+        publicChannel.listen(
+            '.Message',
+            (data: { message: string; user_id?: number }) => {
+                console.log('Public channel message received:', data);
+                if (data.user_id && auth && data.user_id === auth.id) {
+                    this.toastService.success('Canal público funcionando!');
+                }
+            },
+        );
 
         if (auth) {
             const privateChannel = this.wsService.privateChannel(

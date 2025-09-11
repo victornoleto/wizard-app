@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -18,12 +17,7 @@ import { GamesService } from '../../games.service';
 
 @Component({
     selector: 'app-game-create-modal',
-    imports: [
-        ReactiveFormsModule,
-        FormValidationDirective,
-        JsonPipe,
-        LoadingComponent,
-    ],
+    imports: [ReactiveFormsModule, FormValidationDirective, LoadingComponent],
     templateUrl: './game-create-modal.component.html',
     styleUrl: './game-create-modal.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

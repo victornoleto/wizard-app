@@ -16,7 +16,7 @@ Instalar aplicação:
 
 ```
 cd /var/www/wizard
-https://github.com/victornoleto/wizard-app
+git clone git@github.com:victornoleto/wizard-app.git
 cd wizard-app
 npm install
 ```

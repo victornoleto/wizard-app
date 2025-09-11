@@ -8,7 +8,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { RegisterRequest } from '@app/core/auth/models/auth.model';
+import {
+    LoginRequest,
+    RegisterRequest,
+} from '@app/core/auth/models/auth.model';
 import { AuthService } from '@app/core/auth/services/auth.service';
 import {
     FormValidationDirective,
@@ -17,7 +20,6 @@ import {
 } from '@app/shared/directives';
 import { AlertService } from '@app/shared/services/alert.service';
 import { getErrorMessage } from '@app/shared/utils/http.utils';
-import { equalsToValidator } from '@app/shared/validators';
 
 @Component({
     selector: 'app-login',
@@ -42,18 +44,18 @@ export class RegisterComponent {
 
     readonly form = this.fb.group(
         {
-            name: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required, Validators.email]],
+            username: ['', [Validators.required, Validators.minLength(3)]],
+            //email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(8)]],
-            password_confirmation: ['', [Validators.required]],
+            //password_confirmation: ['', [Validators.required]],
         },
         {
             validators: [
-                equalsToValidator({
+                /* equalsToValidator({
                     aField: 'password_confirmation',
                     bField: 'password',
                     label: 'Senha',
-                }),
+                }), */
             ],
         },
     );
@@ -70,15 +72,33 @@ export class RegisterComponent {
 
         this.isLoading.set(true);
 
-        const data: RegisterRequest = {
-            name: this.form.value.name || '',
-            email: this.form.value.email || '',
-            password: this.form.value.password || '',
-            password_confirmation: this.form.value.password_confirmation || '',
-        };
+        const data = this.form.value as RegisterRequest;
 
+        this.authService.register(data).subscribe({
+            next: () => {
+                const loginData: LoginRequest = {
+                    email: data.username,
+                    password: data.password,
+                };
+
+                this.login(loginData);
+            },
+            error: (error) => {
+                this.alertService.show({
+                    message: getErrorMessage(error),
+                    title: 'Não foi possível realizar o cadastro',
+                    type: 'error',
+                    container: this.alertContainerRef,
+                });
+
+                this.isLoading.set(false);
+            },
+        });
+    }
+
+    login(credentials: LoginRequest): void {
         this.authService
-            .register(data)
+            .login(credentials)
             .subscribe({
                 next: () => {
                     this.router.navigate(['/dashboard']);
@@ -86,7 +106,7 @@ export class RegisterComponent {
                 error: (error) => {
                     this.alertService.show({
                         message: getErrorMessage(error),
-                        title: 'Não foi possível realizar o cadastro',
+                        title: 'Não foi possível realizar o login',
                         type: 'error',
                         container: this.alertContainerRef,
                     });

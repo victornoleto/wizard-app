@@ -38,8 +38,8 @@ export class LoginComponent {
     @ViewChild('alertContainer') alertContainerRef!: ElementRef<HTMLDivElement>;
 
     readonly form = this.fb.group({
-        email: ['victor', [Validators.required]],
-        password: ['password', [Validators.required, Validators.minLength(6)]],
+        email: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     isLoading = signal<boolean>(false);
