@@ -91,7 +91,6 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
     }
 
     testPublicChannelWebsocket(): void {
-        console.log('Testing public channel websocket connection...');
         this.authService.testPublicChannelWebsocket().subscribe({
             next: (success) => {
                 console.log('Public channel test event sent', { success });
@@ -107,7 +106,6 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
     }
 
     testPrivateChannelWebsocket(): void {
-        console.log('Testing private channel websocket connection...');
         this.authService.testPrivateChannelWebsocket().subscribe({
             next: (success) => {
                 console.log('Private channel test event sent', { success });
@@ -129,7 +127,7 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
     }
 
     private onGameCreated(game: Game) {
-        console.log('Games.Created', game);
+        console.debug('Games.Created', game);
 
         const perPage = this.pagination().perPage;
 

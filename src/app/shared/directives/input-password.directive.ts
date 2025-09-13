@@ -20,11 +20,6 @@ export class InputPasswordDirective implements OnInit {
     private toggleButton!: HTMLButtonElement;
 
     ngOnInit(): void {
-        console.log(
-            'InputPasswordDirective initialized',
-            this.el.nativeElement,
-            this.isPasswordVisible(),
-        );
         this.createPasswordToggle();
     }
 

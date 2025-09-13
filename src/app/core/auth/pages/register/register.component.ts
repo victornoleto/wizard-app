@@ -22,6 +22,7 @@ import {
 import { AlertService } from '@app/shared/services/alert.service';
 import { ToastService } from '@app/shared/services/toast.service';
 import { getErrorMessage } from '@app/shared/utils/http.utils';
+import { az09_ } from '@app/shared/utils/map.utils';
 
 @Component({
     selector: 'app-login',
@@ -77,12 +78,7 @@ export class RegisterComponent implements OnInit {
         this.form.get('username')?.valueChanges.subscribe(() => {
             const value = this.form.get('username')?.value || '';
 
-            // regex only a-z0-9 and _
-            const sanitizedValue = value
-                .toLowerCase()
-                .replace(/[^a-z0-9_]/g, '')
-                .replace(/__+/g, '_')
-                .replace(/^_+|_+$/g, '');
+            const sanitizedValue = az09_(value);
 
             if (value !== sanitizedValue) {
                 this.form.get('username')?.setValue(sanitizedValue, {

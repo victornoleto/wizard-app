@@ -143,10 +143,6 @@ export class GameShowComponent implements OnInit {
     });
 
     ngOnInit(): void {
-        console.log(this.game());
-        console.log(this.isAuthPlaying());
-        console.log(this.userCards());
-
         const gameChannel = this.wsService.channel('Game.' + this.game().id);
 
         gameChannel.listen('.PlayerJoined', this.onPlayerJoined.bind(this));
@@ -197,7 +193,7 @@ export class GameShowComponent implements OnInit {
             .join(this.game().id)
             .subscribe({
                 next: (status: boolean) => {
-                    console.log('Entrou no jogo com sucesso', status);
+                    console.debug('Entrou no jogo com sucesso', status);
                 },
                 error: (error) => {
                     this.toastService.error(getErrorMessage(error));
@@ -215,7 +211,7 @@ export class GameShowComponent implements OnInit {
             .start(this.game().id)
             .subscribe({
                 next: (status: boolean) => {
-                    console.log('Jogo iniciado com sucesso', status);
+                    console.debug('Jogo iniciado com sucesso', status);
                 },
                 error: (error) => {
                     this.toastService.error(getErrorMessage(error));
@@ -242,7 +238,7 @@ export class GameShowComponent implements OnInit {
             .playCard(this.game().id, card.id)
             .subscribe({
                 next: (status: boolean) => {
-                    console.log('Carta jogada com sucesso', status);
+                    console.debug('Carta jogada com sucesso', status);
                 },
                 error: (error) => {
                     this.toastService.error(getErrorMessage(error));
@@ -265,7 +261,7 @@ export class GameShowComponent implements OnInit {
             .bet(this.game().id, bet)
             .subscribe({
                 next: (status: boolean) => {
-                    console.log('Aposta realizada com sucesso', status);
+                    console.debug('Aposta realizada com sucesso', status);
                 },
                 error: (error) => {
                     this.toastService.error(getErrorMessage(error));

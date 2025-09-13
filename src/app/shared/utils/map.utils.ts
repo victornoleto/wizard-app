@@ -30,3 +30,11 @@ function isValidValue(value: FilterValue | FilterValue[] | undefined): boolean {
 
     return true;
 }
+
+export function az09_(value: string): string {
+    return value
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, '')
+        .replace(/__+/g, '_')
+        .replace(/^_+|_+$/g, '');
+}

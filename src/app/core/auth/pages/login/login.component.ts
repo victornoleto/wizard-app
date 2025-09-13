@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/services/auth.service';
@@ -10,6 +10,7 @@ import {
 import { AlertService } from '@app/shared/services/alert.service';
 import { ToastService } from '@app/shared/services/toast.service';
 import { getErrorMessage } from '@app/shared/utils/http.utils';
+import { az09_ } from '@app/shared/utils/map.utils';
 import { LoginRequest } from '../../models/auth.model';
 
 @Component({
@@ -24,7 +25,7 @@ import { LoginRequest } from '../../models/auth.model';
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     protected readonly fb = inject(FormBuilder);
 
     protected readonly router = inject(Router);
@@ -42,6 +43,20 @@ export class LoginComponent {
 
     isLoading = signal<boolean>(false);
     formSubmitted = signal<boolean>(false);
+
+    ngOnInit(): void {
+        this.form.get('email')?.valueChanges.subscribe(() => {
+            const value = this.form.get('email')?.value || '';
+
+            const sanitizedValue = az09_(value);
+
+            if (value !== sanitizedValue) {
+                this.form.get('email')?.setValue(sanitizedValue, {
+                    emitEvent: false,
+                });
+            }
+        });
+    }
 
     submit(): void {
         this.formSubmitted.set(true);
