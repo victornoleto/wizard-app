@@ -3,6 +3,7 @@ import {
     Component,
     ElementRef,
     inject,
+    OnInit,
     signal,
     ViewChild,
 } from '@angular/core';
@@ -19,6 +20,7 @@ import {
     LoadingDirective,
 } from '@app/shared/directives';
 import { AlertService } from '@app/shared/services/alert.service';
+import { ToastService } from '@app/shared/services/toast.service';
 import { getErrorMessage } from '@app/shared/utils/http.utils';
 
 @Component({
@@ -34,8 +36,10 @@ import { getErrorMessage } from '@app/shared/utils/http.utils';
     styleUrl: './register.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
     @ViewChild('alertContainer') alertContainerRef!: ElementRef<HTMLDivElement>;
+
+    protected readonly toastService = inject(ToastService);
 
     private readonly fb = inject(FormBuilder);
     private readonly authService = inject(AuthService);
@@ -46,7 +50,10 @@ export class RegisterComponent {
         {
             username: ['', [Validators.required, Validators.minLength(3)]],
             //email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(8)]],
+            password: [
+                'password',
+                [Validators.required, Validators.minLength(8)],
+            ],
             //password_confirmation: ['', [Validators.required]],
         },
         {
@@ -62,6 +69,25 @@ export class RegisterComponent {
 
     protected readonly isLoading = signal(false);
     protected readonly formSubmitted = signal(false);
+
+    ngOnInit(): void {
+        this.form.get('username')?.valueChanges.subscribe(() => {
+            const value = this.form.get('username')?.value || '';
+
+            // regex only a-z0-9 and _
+            const sanitizedValue = value
+                .toLowerCase()
+                .replace(/[^a-z0-9_]/g, '')
+                .replace(/__+/g, '_')
+                .replace(/^_+|_+$/g, '');
+
+            if (value !== sanitizedValue) {
+                this.form.get('username')?.setValue(sanitizedValue, {
+                    emitEvent: false,
+                });
+            }
+        });
+    }
 
     submit(): void {
         this.formSubmitted.set(true);
@@ -84,12 +110,14 @@ export class RegisterComponent {
                 this.login(loginData);
             },
             error: (error) => {
-                this.alertService.show({
+                /* this.alertService.show({
                     message: getErrorMessage(error),
                     title: 'Não foi possível realizar o cadastro',
                     type: 'error',
                     container: this.alertContainerRef,
-                });
+                }); */
+
+                this.toastService.error(getErrorMessage(error));
 
                 this.isLoading.set(false);
             },

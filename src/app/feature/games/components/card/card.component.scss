@@ -22,20 +22,43 @@ app-card {
         background: var(--bg-color);
         //text-shadow: 2px 2px 0px #00000066;
 
+        &::before {
+            position: absolute;
+            bottom: 10px;
+            font-size: 15px;
+            //text-shadow: 0 0px 5px #00000029;
+        }
+
         &[data-suit-id="1"] {
             --bg-color: var(--color-blue);
+
+            &::before {
+                content: "🔵";
+            }
         }
 
         &[data-suit-id="2"] {
             --bg-color: var(--color-red);
+
+            &::before {
+                content: "❤️";
+            }
         }
 
         &[data-suit-id="3"] {
             --bg-color: var(--color-green);
+
+            &::before {
+                content: "🟩";
+            }
         }
 
         &[data-suit-id="4"] {
             --bg-color: var(--color-yellow);
+
+            &::before {
+                content: "⭐";
+            }
         }
 
         &[data-suit-id="5"] {

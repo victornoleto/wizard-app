@@ -4,16 +4,9 @@ import {
     input,
     model,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Game } from '@app/feature/games/games.model';
-import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
-import { TableButtonsComponent } from '@app/shared/components/table/table-buttons/table-buttons.component';
-import {
-    LoadingDirective,
-    TableSort,
-    TableSortableDirective,
-} from '@app/shared/directives';
+import { TableSort } from '@app/shared/directives';
 import {
     LengthAwarePaginator,
     Paginator,
@@ -21,14 +14,7 @@ import {
 
 @Component({
     selector: 'app-games-table',
-    imports: [
-        TableSortableDirective,
-        PaginationComponent,
-        TableButtonsComponent,
-        FormsModule,
-        LoadingDirective,
-        RouterLink,
-    ],
+    imports: [RouterLink],
     templateUrl: './games-table.component.html',
     styleUrl: './games-table.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

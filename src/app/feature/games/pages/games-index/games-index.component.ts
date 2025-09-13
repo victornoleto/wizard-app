@@ -8,7 +8,6 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/services/auth.service';
 import { PageIndex } from '@app/shared/components/page-index';
-import { PageIndexCardComponent } from '@app/shared/components/page-index-card/page-index-card.component';
 import { PageIndexMessagesComponent } from '@app/shared/components/page-index-messages/page-index-messages.component';
 import { Filters } from '@app/shared/models/filters.model';
 import {
@@ -17,9 +16,9 @@ import {
 } from '@app/shared/models/pagination.model';
 import { Search } from '@app/shared/models/search.model';
 import { WebsocketService } from '@app/shared/services/websocket.service';
+import { getErrorMessage } from '@app/shared/utils/http.utils';
 import { Observable } from 'rxjs';
 import { GameCreateModalComponent } from '../../components/game-create-modal/game-create-modal.component';
-import { GamesPageHeaderComponent } from '../../components/games-page-header/games-page-header.component';
 import { Game } from '../../games.model';
 import { GamesService } from '../../games.service';
 import { GamesTableComponent } from './components/games-table/games-table.component';
@@ -27,9 +26,7 @@ import { GamesTableComponent } from './components/games-table/games-table.compon
 @Component({
     selector: 'app-games-index',
     imports: [
-        GamesPageHeaderComponent,
         GamesTableComponent,
-        PageIndexCardComponent,
         PageIndexMessagesComponent,
         GameCreateModalComponent,
     ],
@@ -58,6 +55,71 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
         const gamesChannel = this.wsService.channel('Games');
 
         gamesChannel.listen('.Created', this.onGameCreated.bind(this));
+
+        const auth = this.authService.user();
+
+        const publicChannel = this.wsService.channel('Test');
+
+        publicChannel.unsubscribe();
+
+        publicChannel.subscribe();
+
+        publicChannel.listen(
+            '.Message',
+            (data: { message: string; user_id?: number }) => {
+                console.log('Public channel message received:', data);
+                if (data.user_id && auth && data.user_id === auth.id) {
+                    this.toastService.success('Canal público funcionando!', {
+                        id: 'public-channel',
+                    });
+                }
+            },
+        );
+
+        if (auth) {
+            const privateChannel = this.wsService.privateChannel(
+                'User.' + auth.id,
+            );
+
+            privateChannel.listen('.Message', (data: { message: string }) => {
+                console.log('Private channel message received:', data.message);
+                this.toastService.success('Canal privado funcionando!', {
+                    id: 'private-channel',
+                });
+            });
+        }
+    }
+
+    testPublicChannelWebsocket(): void {
+        console.log('Testing public channel websocket connection...');
+        this.authService.testPublicChannelWebsocket().subscribe({
+            next: (success) => {
+                console.log('Public channel test event sent', { success });
+            },
+            error: (error) => {
+                console.error(
+                    'Error sending public channel test event:',
+                    error,
+                );
+                this.toastService.error(getErrorMessage(error));
+            },
+        });
+    }
+
+    testPrivateChannelWebsocket(): void {
+        console.log('Testing private channel websocket connection...');
+        this.authService.testPrivateChannelWebsocket().subscribe({
+            next: (success) => {
+                console.log('Private channel test event sent', { success });
+            },
+            error: (error) => {
+                console.error(
+                    'Error sending private channel test event:',
+                    error,
+                );
+                this.toastService.error(getErrorMessage(error));
+            },
+        });
     }
 
     override searchObservable(

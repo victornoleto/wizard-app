@@ -26,9 +26,9 @@ export const appConfig: ApplicationConfig = {
             return inject(AuthService).isAuthenticated();
         }),
         provideHotToastConfig({
-            stacking: 'depth',
+            stacking: 'vertical',
             visibleToasts: 3,
-            //dismissible: true,
+            dismissible: true,
             duration: 3500,
             autoClose: true,
         }),

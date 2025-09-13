@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '@app/core/layout/header/header.component';
 import { SidebarComponent } from '@app/core/layout/sidebar/sidebar.component';
 
 @Component({
     selector: 'app-auth',
-    imports: [RouterOutlet, HeaderComponent, SidebarComponent],
+    imports: [RouterOutlet, SidebarComponent],
     templateUrl: './auth.component.html',
     styleUrl: './auth.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

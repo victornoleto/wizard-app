@@ -1,22 +1,39 @@
 <div id="games-index-page" class="page">
-    <app-games-page-header>
-        <app-game-create-modal></app-game-create-modal>
-    </app-games-page-header>
+    <!-- <app-games-page-header> </app-games-page-header> -->
 
-    <app-page-index-card [subtitle]="null">
-        @if (records().data.length > 0) {
-            <app-games-table
-                [games]="records()"
-                [isLoading]="isLoading()"
-                [(sort)]="sort"
-                [(pagination)]="pagination"
-            ></app-games-table>
-        } @else {
-            <app-page-index-messages
-                [isLoading]="isLoading()"
-                [error]="error()"
-                (refresh)="refresh()"
-            ></app-page-index-messages>
-        }
-    </app-page-index-card>
+    <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
+        <app-game-create-modal></app-game-create-modal>
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            (click)="testPublicChannelWebsocket()"
+        >
+            Testar Websocket Canal Público
+        </button>
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            (click)="testPrivateChannelWebsocket()"
+        >
+            Testar Websocket Canal Privado
+        </button>
+    </div>
+
+    @if (records().data.length > 0) {
+        <app-games-table
+            [games]="records()"
+            [isLoading]="isLoading()"
+            [(sort)]="sort"
+            [(pagination)]="pagination"
+        ></app-games-table>
+    } @else {
+        <app-page-index-messages
+            [isLoading]="isLoading()"
+            [error]="error()"
+            (refresh)="refresh()"
+        ></app-page-index-messages>
+    }
+    <!-- <app-page-index-card [subtitle]="null"> </app-page-index-card> -->
 </div>

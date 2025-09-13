@@ -8,3 +8,9 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+#game-show-page {
+    &.has-alert {
+        padding-top: calc(47px + 2rem);
+    }
+}

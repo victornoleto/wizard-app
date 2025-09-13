@@ -1,10 +1,20 @@
-<div id="game-show-page" class="page">
+<div
+    id="game-show-page"
+    class="page pb-0"
+    [class.has-alert]="nextPlayerToPlay() || nextPlayerToBet()"
+>
+    <app-game-alert
+        [nextPlayerToBet]="nextPlayerToBet()"
+        [nextPlayerToPlay]="nextPlayerToPlay()"
+        [authId]="auth()?.id"
+    ></app-game-alert>
+
     @if (!game().started_at) {
         <div id="game-controls">
             @if (!isAuthPlaying()) {
                 <button
                     type="button"
-                    class="btn btn-lg btn-primary"
+                    class="btn btn-primary"
                     (click)="join()"
                     [disabled]="isJoining()"
                 >
@@ -14,7 +24,7 @@
             @if (game().creator.id === auth()?.id) {
                 <button
                     type="button"
-                    class="btn btn-lg btn-primary"
+                    class="btn btn-success"
                     (click)="start()"
                     [disabled]="isStarting()"
                 >
@@ -38,96 +48,82 @@
                 <li ngbNavItem="game">
                     <button ngbNavLink>Jogo</button>
                     <ng-template ngbNavContent>
-                        <app-page-index-card
-                            icon="fal fa-cards"
-                            [title]="title()"
-                            [subtitle]="null"
-                        >
-                            @if (nextPlayerToPlay()?.id === auth()?.id) {
-                                <div class="alert alert-warning">
-                                    <p class="m-0">
-                                        É a <b>sua vez</b> de jogar uma carta!
+                        <app-game-users-table
+                            [users]="players()!"
+                        ></app-game-users-table>
+
+                        @if (match() && isAuthNextPlayerToBet()) {
+                            <app-game-bet
+                                [gameId]="game().id"
+                                [match]="match()!"
+                                [player]="nextPlayerToBet()!"
+                                [isBetting]="isBetting()"
+                                (bet)="onBet($event)"
+                            ></app-game-bet>
+                        }
+
+                        @if (lastRound()) {
+                            <app-game-round
+                                [round]="lastRound()!"
+                                message="Último round"
+                            ></app-game-round>
+                        }
+
+                        @if ((round()?.plays || []).length > 0) {
+                            <app-game-round
+                                [round]="round()!"
+                                message="Round atual"
+                                [showWinnerMessage]="false"
+                            ></app-game-round>
+                        }
+
+                        <!-- <pre>{{ round() | json }}</pre> -->
+                        @if (userCards().length > 0) {
+                            <div
+                                class="d-flex flex-column pt-3 mt-3 border-top border-1"
+                            >
+                                @if (joker(); as jokerCard) {
+                                    <p
+                                        class="text-center d-flex align-items-center justify-content-center gap-1"
+                                    >
+                                        O curinga para esta partída é:
+                                        <b>{{ jokerCard.name }}</b>
+                                        <span>{{ jokerCard.symbol }}</span>
                                     </p>
-                                </div>
-                            } @else if (nextPlayerToPlay()) {
-                                <div class="alert alert-info">
-                                    <p class="m-0">
-                                        É a vez de
-                                        <b>{{
-                                            nextPlayerToPlay()?.username
-                                        }}</b>
-                                        jogar uma carta!
-                                    </p>
-                                </div>
-                            }
+                                }
 
-                            <app-game-users-table
-                                [users]="players()!"
-                            ></app-game-users-table>
-
-                            @if (match() && nextPlayerToBet()) {
-                                <app-game-bet
-                                    [gameId]="game().id"
-                                    [match]="match()!"
-                                    [player]="nextPlayerToBet()!"
-                                    [isBetting]="isBetting()"
-                                    (bet)="onBet($event)"
-                                ></app-game-bet>
-                            }
-
-                            @if (lastRound()) {
-                                <app-game-round
-                                    [round]="lastRound()!"
-                                    message="Último round"
-                                ></app-game-round>
-                            }
-
-                            @if (round()) {
-                                <app-game-round
-                                    [round]="round()!"
-                                    message="Round atual"
-                                    [showWinnerMessage]="false"
-                                ></app-game-round>
-                            }
-
-                            <!-- <pre>{{ round() | json }}</pre> -->
-                            @if (userCards().length > 0) {
                                 <app-game-user-cards
                                     [cards]="userCards()"
                                     (play)="onPlayCard($event)"
                                 ></app-game-user-cards>
-                            }
-                        </app-page-index-card>
+                            </div>
+                        }
                     </ng-template>
                 </li>
                 <li ngbNavItem="logs">
                     <button ngbNavLink>Logs</button>
                     <ng-template ngbNavContent>
-                        <app-page-index-card
-                            icon="fal fa-list"
-                            title="Histórico de ações"
-                            [subtitle]="null"
-                        >
-                            @if (logs().length === 0) {
-                                <app-page-message
-                                    icon="🃏"
-                                    message="Nenhuma ação registrada"
-                                    details="Aguarde o início do jogo para ver as ações dos jogadores."
-                                ></app-page-message>
-                            } @else {
-                                <ul>
-                                    @for (log of logs(); track $index) {
-                                        <li>
-                                            [{{
+                        @if (logs().length === 0) {
+                            <app-page-message
+                                icon="🃏"
+                                message="Nenhuma ação registrada"
+                                details="Aguarde o início do jogo para ver as ações dos jogadores."
+                            ></app-page-message>
+                        } @else {
+                            <ul class="list-unstyled d-flex flex-column gap-3">
+                                @for (log of logs(); track $index) {
+                                    <li>
+                                        <div class="d-flex flex-column">
+                                            <small class="text-muted">{{
                                                 log.created_at
                                                     | date: "HH:mm:ss"
-                                            }}]
-                                            {{ log.message }}
-                                        </li>
-                                    }
-                                </ul>
-                            }
-                        </app-page-index-card>
+                                            }}</small>
+                                            <p class="m-0">{{ log.message }}</p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
                     </ng-template>
                 </li>
             </ul>

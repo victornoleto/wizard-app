@@ -36,10 +36,6 @@ export class GameBetComponent {
         return Array.from({ length: totalRounds + 1 }, (_, i) => i);
     });
 
-    protected readonly isAuthNextPlayerToBet = computed<boolean>(() => {
-        return this.auth()?.id === this.player()?.id;
-    });
-
     protected readonly selected = signal<number | null>(null);
 
     readonly bet = output<number>();

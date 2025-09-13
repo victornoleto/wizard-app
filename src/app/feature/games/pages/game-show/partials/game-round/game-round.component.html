@@ -1,4 +1,4 @@
-<div class="rounded p-3 border bg-light mt-3">
+<div class="mt-3">
     <div class="d-flex align-items-center">
         <small class="opacity-50">{{ message() }}</small>
         <i
@@ -12,7 +12,7 @@
     @if (visible()) {
         @if (showWinnerMessage(); as showWinner) {
             @if (winner(); as roundWinner) {
-                <small class="d-block mb-1">
+                <small class="d-block">
                     <b>{{ roundWinner.user.username }}</b> venceu o round com a
                     carta
                     <span>{{ roundWinner.card.name }}</span>
@@ -22,7 +22,7 @@
     }
 
     @if (visible()) {
-        <p class="mb-1 fw-bold">
+        <p class="fw-bold mb-0">
             Partida {{ round().match_index }} — Round {{ round().index }}
         </p>
 

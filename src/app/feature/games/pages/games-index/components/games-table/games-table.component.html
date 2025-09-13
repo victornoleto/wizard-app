@@ -1,4 +1,4 @@
-<div class="table-responsive" [appLoading]="isLoading()">
+<!-- <div class="table-responsive" [appLoading]="isLoading()">
     <table class="table table-bordered" [(appTableSortable)]="sort">
         <thead>
             <tr>
@@ -7,8 +7,6 @@
                 <th data-sort="owner.name">Criador</th>
                 <th>Partida</th>
                 <th>Round</th>
-                <!-- <th>Dt. inicio</th>
-                <th>Dt. fim</th> -->
                 <th>Ações</th>
             </tr>
         </thead>
@@ -17,13 +15,7 @@
                 <tr>
                     <td>{{ game.id }}</td>
                     <td>
-                        @if (game.ended_at) {
-                            <span class="badge bg-secondary">Finalizado</span>
-                        } @else if (game.started_at) {
-                            <span class="badge bg-success">Em andamento</span>
-                        } @else {
-                            <span class="badge bg-info">Aguardando início</span>
-                        }
+                        
                     </td>
                     <td>{{ game.creator.name }}</td>
                     <td>
@@ -34,9 +26,6 @@
                             game.current_match || 0
                         }}
                     </td>
-                    <!-- <td>{{ game.created_at | date }}</td>
-                    <td>{{ game.started_at | date }}</td>
-                    <td>{{ game.ended_at | date }}</td> -->
                     <td>
                         <app-table-buttons>
                             <a
@@ -52,9 +41,40 @@
             }
         </tbody>
     </table>
+</div> -->
+
+<div class="d-flex flex-column gap-3">
+    @for (game of games().data; track game.id) {
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex flex-column align-items-start">
+                        <h5 class="mb-1">Jogo {{ game.id }}</h5>
+                        <p class="text-muted mb-1">
+                            Criado por <b>{{ game.creator.name }}</b>
+                        </p>
+                        @if (game.ended_at) {
+                            <span class="badge bg-secondary">Finalizado</span>
+                        } @else if (game.started_at) {
+                            <span class="badge bg-success">Em andamento</span>
+                        } @else {
+                            <span class="badge bg-info">Aguardando início</span>
+                        }
+                    </div>
+                    <a
+                        [routerLink]="['/game', game.id]"
+                        type="button"
+                        class="ms-auto btn btn-secondary"
+                    >
+                        Entrar
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
-<app-pagination
+<!-- <app-pagination
     [collection]="games()"
     [(pagination)]="pagination"
-></app-pagination>
+></app-pagination> -->

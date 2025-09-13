@@ -39,7 +39,7 @@ export class LoginComponent {
 
     readonly form = this.fb.group({
         email: ['', [Validators.required]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        password: ['password', [Validators.required, Validators.minLength(6)]],
     });
 
     isLoading = signal<boolean>(false);
@@ -63,7 +63,7 @@ export class LoginComponent {
             .login(credentials)
             .subscribe({
                 next: () => {
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/games']);
                 },
                 error: (error) => {
                     this.alertService.show({

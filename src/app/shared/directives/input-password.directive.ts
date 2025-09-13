@@ -4,6 +4,7 @@ import {
     OnInit,
     Renderer2,
     inject,
+    model,
 } from '@angular/core';
 
 @Directive({
@@ -13,11 +14,17 @@ export class InputPasswordDirective implements OnInit {
     private readonly el = inject(ElementRef<HTMLInputElement>);
     private readonly renderer = inject(Renderer2);
 
+    readonly isPasswordVisible = model<boolean>(false);
+
     private wrapperDiv!: HTMLDivElement;
     private toggleButton!: HTMLButtonElement;
-    private isPasswordVisible = false;
 
     ngOnInit(): void {
+        console.log(
+            'InputPasswordDirective initialized',
+            this.el.nativeElement,
+            this.isPasswordVisible(),
+        );
         this.createPasswordToggle();
     }
 
@@ -79,6 +86,10 @@ export class InputPasswordDirective implements OnInit {
 
         // Adiciona o botão à div wrapper
         this.renderer.appendChild(this.wrapperDiv, this.toggleButton);
+
+        if (this.isPasswordVisible()) {
+            this.renderer.setAttribute(this.el.nativeElement, 'type', 'text');
+        }
     }
 
     private updateToggleIcon(): void {
@@ -88,7 +99,7 @@ export class InputPasswordDirective implements OnInit {
         // Cria o novo ícone
         const icon = this.renderer.createElement('i');
 
-        if (this.isPasswordVisible) {
+        if (this.isPasswordVisible()) {
             this.renderer.addClass(icon, 'fal');
             this.renderer.addClass(icon, 'fa-eye-slash');
             this.renderer.setAttribute(
@@ -110,10 +121,10 @@ export class InputPasswordDirective implements OnInit {
     }
 
     private togglePasswordVisibility(): void {
-        this.isPasswordVisible = !this.isPasswordVisible;
+        this.isPasswordVisible.set(!this.isPasswordVisible());
 
         // Altera o type do input
-        const newType = this.isPasswordVisible ? 'text' : 'password';
+        const newType = this.isPasswordVisible() ? 'text' : 'password';
         this.renderer.setAttribute(this.el.nativeElement, 'type', newType);
 
         // Atualiza o ícone

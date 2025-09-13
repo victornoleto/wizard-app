@@ -1,0 +1,31 @@
+@if (nextPlayerToPlay()) {
+    @if (nextPlayerToPlay()?.id === authId()) {
+        <div class="alert alert-danger d-flex align-items-center gap-2">
+            <i class="fad fs-4 fa-exclamation-square fa-beat"></i>
+            <p class="m-0">É a <b>sua vez</b> de jogar uma carta!</p>
+        </div>
+    } @else {
+        <div class="alert alert-info">
+            <p class="m-0 text-ellipsis">
+                É a vez de
+                <b>{{ nextPlayerToPlay()?.username }}</b>
+                jogar uma carta.
+            </p>
+        </div>
+    }
+} @else if (nextPlayerToBet()) {
+    @if (nextPlayerToBet()?.id === authId()) {
+        <div class="alert alert-danger d-flex align-items-center gap-2">
+            <i class="fad fs-4 fa-exclamation-square fa-beat"></i>
+            <p class="m-0">É a <b>sua vez</b> de apostar!</p>
+        </div>
+    } @else {
+        <div class="alert alert-info">
+            <p class="m-0">
+                É a vez de
+                <b>{{ nextPlayerToBet()?.username }}</b>
+                apostar!
+            </p>
+        </div>
+    }
+}

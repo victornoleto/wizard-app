@@ -10,7 +10,6 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@app/core/auth/models/auth.model';
 import { AuthService } from '@app/core/auth/services/auth.service';
-import { PageIndexCardComponent } from '@app/shared/components/page-index-card/page-index-card.component';
 import { PageMessageComponent } from '@app/shared/components/page-message/page-message.component';
 import { ToastService } from '@app/shared/services/toast.service';
 import { WebsocketService } from '@app/shared/services/websocket.service';
@@ -32,6 +31,7 @@ import {
 } from '../../games.model';
 import { GamesService } from '../../games.service';
 import { Suit } from './../../games.model';
+import { GameAlertComponent } from './partials/game-alert/game-alert.component';
 import { GameBetComponent } from './partials/game-bet/game-bet.component';
 import { GameRoundComponent } from './partials/game-round/game-round.component';
 import { GameUserCardsComponent } from './partials/game-user-cards/game-user-cards.component';
@@ -41,8 +41,8 @@ import { GameUsersTableComponent } from './partials/game-users-table/game-users-
     selector: 'app-game-show',
     imports: [
         NgbNavModule,
-        PageIndexCardComponent,
         DatePipe,
+        GameAlertComponent,
         GameBetComponent,
         GameUserCardsComponent,
         GameRoundComponent,
@@ -111,6 +111,12 @@ export class GameShowComponent implements OnInit {
     protected readonly nextPlayerToBet = signal<User | null>(
         this.game().next_player_to_bet || null,
     );
+
+    protected readonly isAuthNextPlayerToBet = computed<boolean>(() => {
+        const nextPlayer = this.nextPlayerToBet();
+        const authId = this.auth()?.id;
+        return !!nextPlayer && authId === nextPlayer.id;
+    });
 
     protected readonly title = computed<string>(() => {
         const match = this.match();
