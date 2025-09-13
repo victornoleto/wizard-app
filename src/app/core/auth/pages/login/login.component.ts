@@ -1,10 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    inject,
-    signal,
-    ViewChild,
-} from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/services/auth.service';
@@ -41,8 +35,6 @@ export class LoginComponent {
 
     protected readonly alertService = inject(AlertService);
 
-    @ViewChild('alertContainer') alertContainerRef!: ElementRef<HTMLDivElement>;
-
     readonly form = this.fb.group({
         email: ['', [Validators.required]],
         password: ['password', [Validators.required, Validators.minLength(6)]],
@@ -73,12 +65,6 @@ export class LoginComponent {
                 },
                 error: (error) => {
                     this.toastService.error(getErrorMessage(error));
-                    /* this.alertService.show({
-                        message: getErrorMessage(error),
-                        title: 'Não foi possível realizar o login',
-                        type: 'error',
-                        container: this.alertContainerRef,
-                    }); */
                 },
             })
             .add(() => {

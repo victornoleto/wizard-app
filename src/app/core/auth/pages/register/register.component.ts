@@ -113,15 +113,7 @@ export class RegisterComponent implements OnInit {
                 this.login(loginData);
             },
             error: (error) => {
-                /* this.alertService.show({
-                    message: getErrorMessage(error),
-                    title: 'Não foi possível realizar o cadastro',
-                    type: 'error',
-                    container: this.alertContainerRef,
-                }); */
-
                 this.toastService.error(getErrorMessage(error));
-
                 this.isLoading.set(false);
             },
         });
@@ -132,15 +124,10 @@ export class RegisterComponent implements OnInit {
             .login(credentials)
             .subscribe({
                 next: () => {
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/games']);
                 },
                 error: (error) => {
-                    this.alertService.show({
-                        message: getErrorMessage(error),
-                        title: 'Não foi possível realizar o login',
-                        type: 'error',
-                        container: this.alertContainerRef,
-                    });
+                    this.toastService.error(getErrorMessage(error));
                 },
             })
             .add(() => {
