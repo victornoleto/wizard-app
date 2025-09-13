@@ -24,6 +24,7 @@ export function buildHttpParams(params: Filters): HttpParams {
 export function getErrorMessage(error: HttpErrorResponse): string {
     let message =
         error.error?.message ||
+        error.error?.error_description ||
         error.error?.error ||
         error.message ||
         error.status + ' ' + error.statusText;

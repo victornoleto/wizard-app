@@ -14,6 +14,7 @@ import {
     LoadingDirective,
 } from '@app/shared/directives';
 import { AlertService } from '@app/shared/services/alert.service';
+import { ToastService } from '@app/shared/services/toast.service';
 import { getErrorMessage } from '@app/shared/utils/http.utils';
 import { LoginRequest } from '../../models/auth.model';
 
@@ -30,10 +31,15 @@ import { LoginRequest } from '../../models/auth.model';
     styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-    protected readonly authService = inject(AuthService);
-    protected readonly alertService = inject(AlertService);
-    protected readonly router = inject(Router);
     protected readonly fb = inject(FormBuilder);
+
+    protected readonly router = inject(Router);
+
+    protected readonly toastService = inject(ToastService);
+
+    protected readonly authService = inject(AuthService);
+
+    protected readonly alertService = inject(AlertService);
 
     @ViewChild('alertContainer') alertContainerRef!: ElementRef<HTMLDivElement>;
 
@@ -66,12 +72,13 @@ export class LoginComponent {
                     this.router.navigate(['/games']);
                 },
                 error: (error) => {
-                    this.alertService.show({
+                    this.toastService.error(getErrorMessage(error));
+                    /* this.alertService.show({
                         message: getErrorMessage(error),
                         title: 'Não foi possível realizar o login',
                         type: 'error',
                         container: this.alertContainerRef,
-                    });
+                    }); */
                 },
             })
             .add(() => {

@@ -39,12 +39,15 @@ import { getErrorMessage } from '@app/shared/utils/http.utils';
 export class RegisterComponent implements OnInit {
     @ViewChild('alertContainer') alertContainerRef!: ElementRef<HTMLDivElement>;
 
+    protected readonly fb = inject(FormBuilder);
+
+    protected readonly router = inject(Router);
+
     protected readonly toastService = inject(ToastService);
 
-    private readonly fb = inject(FormBuilder);
-    private readonly authService = inject(AuthService);
-    private readonly alertService = inject(AlertService);
-    private readonly router = inject(Router);
+    protected readonly authService = inject(AuthService);
+
+    protected readonly alertService = inject(AlertService);
 
     readonly form = this.fb.group(
         {
