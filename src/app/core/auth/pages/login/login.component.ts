@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     protected readonly alertService = inject(AlertService);
 
     readonly form = this.fb.group({
-        email: ['', [Validators.required]],
+        username: ['', [Validators.required]],
         password: ['password', [Validators.required, Validators.minLength(6)]],
     });
 
@@ -45,13 +45,13 @@ export class LoginComponent implements OnInit {
     formSubmitted = signal<boolean>(false);
 
     ngOnInit(): void {
-        this.form.get('email')?.valueChanges.subscribe(() => {
-            const value = this.form.get('email')?.value || '';
+        this.form.get('username')?.valueChanges.subscribe(() => {
+            const value = this.form.get('username')?.value || '';
 
             const sanitizedValue = az09_(value);
 
             if (value !== sanitizedValue) {
-                this.form.get('email')?.setValue(sanitizedValue, {
+                this.form.get('username')?.setValue(sanitizedValue, {
                     emitEvent: false,
                 });
             }
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         }
 
         const credentials: LoginRequest = {
-            email: this.form.value.email || '',
+            email: this.form.value.username || '',
             password: this.form.value.password || '',
         };
 

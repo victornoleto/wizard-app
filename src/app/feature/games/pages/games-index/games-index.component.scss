@@ -1,3 +1,16 @@
 :host {
-  display: block;
+    display: block;
+}
+
+#youtube-embed {
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+
+    iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: none;
+        max-width: 500px;
+    }
 }

@@ -5,8 +5,11 @@ import {
     OnInit,
     signal,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/services/auth.service';
+import { PageHeaderControlsComponent } from '@app/shared/components/page-header-controls/page-header-controls.component';
+import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
 import { PageIndex } from '@app/shared/components/page-index';
 import { PageIndexMessagesComponent } from '@app/shared/components/page-index-messages/page-index-messages.component';
 import { Filters } from '@app/shared/models/filters.model';
@@ -29,6 +32,8 @@ import { GamesTableComponent } from './components/games-table/games-table.compon
         GamesTableComponent,
         PageIndexMessagesComponent,
         GameCreateModalComponent,
+        PageHeaderComponent,
+        PageHeaderControlsComponent,
     ],
     templateUrl: './games-index.component.html',
     styleUrl: './games-index.component.scss',
@@ -37,7 +42,11 @@ import { GamesTableComponent } from './components/games-table/games-table.compon
 export class GamesIndexComponent extends PageIndex implements OnInit {
     /* usersFilters = viewChild(UsersFiltersComponent); */
 
+    protected readonly router = inject(Router);
+
     private readonly usersService = inject(GamesService);
+
+    protected readonly authService = inject(AuthService);
 
     protected readonly filters = signal<Filters>({});
 
@@ -47,9 +56,9 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
 
     protected readonly wsService = inject(WebsocketService);
 
-    protected readonly authService = inject(AuthService);
+    protected readonly sanitizer = inject(DomSanitizer);
 
-    protected readonly router = inject(Router);
+    protected readonly youtubeUrl = signal<string | null>(null);
 
     ngOnInit(): void {
         const gamesChannel = this.wsService.channel('Games');
@@ -59,10 +68,6 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
         const auth = this.authService.user();
 
         const publicChannel = this.wsService.channel('Test');
-
-        publicChannel.unsubscribe();
-
-        publicChannel.subscribe();
 
         publicChannel.listen(
             '.Message',
@@ -88,6 +93,12 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
                 });
             });
         }
+
+        this.youtubeUrl.set(
+            this.sanitizer.bypassSecurityTrustResourceUrl(
+                'https://www.youtube.com/embed/EBavZdiwPhE',
+            ) as string,
+        );
     }
 
     testPublicChannelWebsocket(): void {
@@ -118,6 +129,11 @@ export class GamesIndexComponent extends PageIndex implements OnInit {
                 this.toastService.error(getErrorMessage(error));
             },
         });
+    }
+
+    logout(): void {
+        this.authService.logout();
+        this.router.navigate(['/auth/login']);
     }
 
     override searchObservable(

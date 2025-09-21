@@ -7,9 +7,11 @@ import {
     signal,
     type OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { User } from '@app/core/auth/models/auth.model';
 import { AuthService } from '@app/core/auth/services/auth.service';
+import { PageHeaderControlsComponent } from '@app/shared/components/page-header-controls/page-header-controls.component';
+import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
 import { PageMessageComponent } from '@app/shared/components/page-message/page-message.component';
 import { ToastService } from '@app/shared/services/toast.service';
 import { WebsocketService } from '@app/shared/services/websocket.service';
@@ -40,6 +42,7 @@ import { GameUsersTableComponent } from './partials/game-users-table/game-users-
 @Component({
     selector: 'app-game-show',
     imports: [
+        RouterLink,
         NgbNavModule,
         DatePipe,
         GameAlertComponent,
@@ -48,6 +51,8 @@ import { GameUsersTableComponent } from './partials/game-users-table/game-users-
         GameRoundComponent,
         GameUsersTableComponent,
         PageMessageComponent,
+        PageHeaderComponent,
+        PageHeaderControlsComponent,
     ],
     templateUrl: './game-show.component.html',
     styleUrl: './game-show.component.scss',
@@ -140,6 +145,10 @@ export class GameShowComponent implements OnInit {
         return parts.length > 0
             ? parts.join(', ')
             : 'Aguardando início do jogo';
+    });
+
+    protected readonly hasAlert = computed<boolean>(() => {
+        return !!this.nextPlayerToPlay() || !!this.nextPlayerToBet();
     });
 
     ngOnInit(): void {

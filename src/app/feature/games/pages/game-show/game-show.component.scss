@@ -2,15 +2,34 @@
     display: block;
 }
 
+#game-show-page {
+    position: relative;
+
+    #main-row {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+
+        #main-col {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
 #game-controls {
     position: fixed;
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
+
+    &:empty {
+        display: none;
+    }
 }
 
 #game-show-page {
     &.has-alert {
-        padding-top: calc(47px + 2rem);
+        //padding-top: calc(53px + 2rem);
     }
 }

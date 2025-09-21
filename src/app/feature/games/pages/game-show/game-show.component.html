@@ -1,16 +1,6 @@
-<div
-    id="game-show-page"
-    class="page"
-    [class.has-alert]="nextPlayerToPlay() || nextPlayerToBet()"
->
-    <app-game-alert
-        [nextPlayerToBet]="nextPlayerToBet()"
-        [nextPlayerToPlay]="nextPlayerToPlay()"
-        [authId]="auth()?.id"
-    ></app-game-alert>
-
-    @if (!game().started_at) {
-        <div id="game-controls">
+<div id="game-show-page" class="page">
+    <div id="game-controls">
+        @if (!game().started_at) {
             @if (!isAuthPlaying()) {
                 <button
                     type="button"
@@ -31,18 +21,44 @@
                     Iniciar jogo
                 </button>
             }
-        </div>
-    }
+        }
+    </div>
 
-    <div class="row">
+    <div id="main-row" class="row">
         <div
+            id="main-col"
             class="col-12 col-md-8 col-lg-6 col-xl-4 offset-md-2 offset-lg-3 offset-xl-4"
         >
+            <app-page-header
+                [title]="'Wizard #' + game().id"
+                [class.mb-3]="hasAlert()"
+                [class.mb-2]="!hasAlert()"
+            >
+                <app-page-header-controls
+                    ngProjectAs="controls"
+                    class="ms-auto"
+                >
+                    <a
+                        [routerLink]="['/games']"
+                        type="button"
+                        class="btn btn-light"
+                        >Sair</a
+                    >
+                </app-page-header-controls>
+            </app-page-header>
+            @if (hasAlert()) {
+                <app-game-alert
+                    [nextPlayerToBet]="nextPlayerToBet()"
+                    [nextPlayerToPlay]="nextPlayerToPlay()"
+                    [authId]="auth()?.id"
+                ></app-game-alert>
+            }
             <ul
                 ngbNav
                 #nav="ngbNav"
                 [(activeId)]="tab"
                 class="nav-tabs"
+                [class.pt-3]="hasAlert()"
                 [destroyOnHide]="false"
             >
                 <li ngbNavItem="game">
@@ -65,6 +81,7 @@
                         @if (lastRound()) {
                             <app-game-round
                                 [round]="lastRound()!"
+                                [totalPlayers]="players().length"
                                 message="Último round"
                             ></app-game-round>
                         }
@@ -72,8 +89,9 @@
                         @if ((round()?.plays || []).length > 0) {
                             <app-game-round
                                 [round]="round()!"
-                                message="Round atual"
+                                [totalPlayers]="players().length"
                                 [showWinnerMessage]="false"
+                                message="Round atual"
                             ></app-game-round>
                         }
 

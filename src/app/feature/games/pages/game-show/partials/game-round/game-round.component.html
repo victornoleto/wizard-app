@@ -26,7 +26,10 @@
             Partida {{ round().match_index }} — Round {{ round().index }}
         </p>
 
-        <div class="d-flex flex-wrap gap-2">
+        <div
+            class="d-flex flex-wrap gap-2 cards-wrapper"
+            [attr.data-total-players]="totalPlayers()"
+        >
             @for (play of round().plays; track $index) {
                 <div class="card-wrapper d-flex flex-column align-items-center">
                     <small class="opacity-75">{{ play.user.username }}</small>

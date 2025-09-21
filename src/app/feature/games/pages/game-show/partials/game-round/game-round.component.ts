@@ -20,6 +20,7 @@ export class GameRoundComponent {
     readonly message = input.required<string>();
     readonly showWinnerMessage = input<boolean>(true);
     readonly visible = signal<boolean>(true);
+    readonly totalPlayers = input.required<number>();
 
     protected readonly winner = computed<GameRoundWinner | null>(
         () => this.round()?.winner || null,

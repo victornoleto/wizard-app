@@ -1,10 +1,16 @@
 <div id="games-index-page" class="page">
-    <!-- <app-games-page-header> </app-games-page-header> -->
+    <app-page-header title="Jogos">
+        <app-page-header-controls ngProjectAs="controls" class="ms-auto">
+            <app-game-create-modal></app-game-create-modal>
+
+            <button type="button" class="btn btn-danger" (click)="logout()">
+                Logout
+            </button>
+        </app-page-header-controls>
+    </app-page-header>
 
     <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
-        <app-game-create-modal></app-game-create-modal>
-
-        <button
+        <!-- <button
             type="button"
             class="btn btn-primary"
             (click)="testPublicChannelWebsocket()"
@@ -18,7 +24,7 @@
             (click)="testPrivateChannelWebsocket()"
         >
             Testar Websocket Canal Privado
-        </button>
+        </button> -->
     </div>
 
     @if (records().data.length > 0) {
@@ -35,5 +41,26 @@
             (refresh)="refresh()"
         ></app-page-index-messages>
     }
+
+    @if (youtubeUrl(); as url) {
+        <div class="mt-3 pt-3 border-top">
+            <h2 class="fw-bold mb-2">Como jogar?</h2>
+            <a
+                class="d-block mb-3"
+                href="https://ludopedia-anexos.nyc3.cdn.digitaloceanspaces.com/wizard_manual_de_regras_em_portugues_228378.pdf"
+                target="_blank"
+                >Wizard - Manual de Regras Oficial em Português Brasileiro</a
+            >
+            <div id="youtube-embed">
+                <iframe
+                    class="w-100"
+                    [src]="url"
+                    frameborder="0"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    }
+
     <!-- <app-page-index-card [subtitle]="null"> </app-page-index-card> -->
 </div>

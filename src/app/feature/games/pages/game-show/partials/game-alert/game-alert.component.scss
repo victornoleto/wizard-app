@@ -1,20 +1,24 @@
 :host {
-    display: block;
+    //display: block;
 }
 
 .alert {
-    position: fixed;
+    position: sticky;
     top: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    //left: 50%;
+    //transform: translateX(-50%);
     z-index: 1050;
-    width: calc(100% - 2rem);
+    width: 100%;
     margin: 0;
-    height: 47px;
+    //height: 47px;
 
     p {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+        //text-overflow: ellipsis;
+        //overflow: hidden;
+        //white-space: nowrap;
+        font-size: 18px;
+        text-align: center;
+        line-height: 24px;
     }
 }

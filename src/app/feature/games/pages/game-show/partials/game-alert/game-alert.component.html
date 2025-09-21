@@ -15,8 +15,10 @@
     }
 } @else if (nextPlayerToBet()) {
     @if (nextPlayerToBet()?.id === authId()) {
-        <div class="alert alert-danger d-flex align-items-center gap-2">
-            <i class="fad fs-4 fa-exclamation-square fa-beat"></i>
+        <div
+            class="alert alert-danger d-flex align-items-center justify-content-center gap-2 animate__animated animate__pulse animate__infinite"
+        >
+            <i class="fad fs-4 fa-exclamation-square"></i>
             <p class="m-0">É a <b>sua vez</b> de apostar!</p>
         </div>
     } @else {
